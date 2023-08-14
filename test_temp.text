@@ -1,0 +1,7 @@
+============check pos and dir=============
+printf("%f\n", rt->cam.pos.x);
+printf("%f\n", rt->cam.pos.y);
+printf("%f\n", rt->cam.pos.z);
+printf("%f\n", rt->cam.dir.x);
+printf("%f\n", rt->cam.dir.y);
+printf("%f\n", rt->cam.dir.z);
