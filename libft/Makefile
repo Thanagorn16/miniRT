@@ -3,16 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+         #
+#    By: tnantaki <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/04/18 13:26:54 by truangsi          #+#    #+#              #
-#    Updated: 2023/04/18 13:27:58 by truangsi         ###   ########.fr        #
+#    Created: 2022/08/31 11:35:05 by tnantaki          #+#    #+#              #
+#    Updated: 2023/02/10 16:35:07 by tnantaki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra -Werror
-NAME = libft.a
-SRCS = ft_atoi.c ft_split.c ft_strlen.c
+NAME	= libft.a
+
+FLAGS	= -Wall -Werror -Wextra
+
+SRCS	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_memcpy.c ft_strlen.c\
+		ft_strchr.c ft_strncmp.c ft_atoi.c ft_calloc.c ft_strdup.c ft_strjoin.c\
+		ft_split.c ft_itoa.c ft_putchar_fd.c ft_putstr_fd.c 
 
 OBJS = $(SRCS:.c=.o)
 
@@ -26,7 +30,6 @@ $(NAME): $(OBJS)
 
 clean:
 	rm -f $(OBJS)
-	rm -f $(BONUS_OBJS)
 
 fclean: clean
 	rm -f $(NAME)

@@ -1,45 +1,60 @@
-FLAGS = -Wall -Wextra -Werror
+### Executable ###
+NAME	= minirt
 
-NAME = miniRT
+### Directory ###
+DIR_LIBFT	= libft
+DIR_SRCS	= srcs
+DIR_OBJS	= objs
+DIR_SUBS	= main math object create setting render
 
-LIBFT_PATH = libft/
-LIBFT_FLAG = -Llibft -lmylib
-LIBFT_HD = -Ilibft
+SRCS_DIRS	= $(foreach dir, $(DIR_SUBS), $(addprefix $(DIR_SRCS)/, $(dir)))
+OBJS_DIRS	= $(foreach dir, $(DIR_SUBS), $(addprefix $(DIR_OBJS)/, $(dir)))
 
-GNL_PATH = get_next_line/
-GNL_FLAG = -get_next_line -lgnl
-GNL_HD = -Iget_next_line
+### Compilation ###
+CC			= cc
+RM			= rm -f
+HEAD_MAN	= -Iincludes
+CFLAGS		= #-Wall -Wextra -Werror -g -fsanitize=address
 
-LIBFT_SRCS = ft_strlen.c ft_split.c ft_atoi.c
+### Libft Flags ###
+HEAD_FT		= -Ilibft
+FLAGS_FT	= -Llibft -lft
 
-GNL_SRCS = get_next_line.c get_next_line_utils.c
+### mlx Flags ###
+UNAME = $(shell uname -s)
+ifeq ($(UNAME), Linux)
+	DIR_MLX		= mlx_linux
+	FLAGS_MLX	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+	HEAD_MLX	= -Imlx_linux
+else
+	DIR_MLX		= mlx_mac
+	FLAGS_MLX	= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit
+	HEAD_MLX	= -Imlx_mac
+endif
 
-MINIRT_SRCS = main.c utils.c utils_rt.c split2.c ft_atof.c 
+### Source Files ###
+SRCS		=	$(foreach dir, $(SRCS_DIRS), $(wildcard $(dir)/*.c))
 
-SRCS = $(MINIRT_SRCS) \
-						$(addprefix $(LIBFT_PATH), $(LIBFT_SRCS)) \
-						$(addprefix $(GNL_PATH), $(GNL_SRCS))
+### Object Files ###
+OBJS		=	$(subst $(DIR_SRCS), $(DIR_OBJS), $(SRCS:.c=.o))
 
-OBJS = $(SRCS:.c=.o)
+### Compilation Rule ###
+$(DIR_OBJS)/%.o:$(DIR_SRCS)/%.c
+	@mkdir -p $(DIR_OBJS) $(OBJS_DIRS)
+	$(CC) $(CFLAGS) $(HEAD_MAN) $(HEAD_MLX) $(HEAD_FT) -c $< -o $@
 
 all: $(NAME)
 
-%.o:%.c
-	gcc $(FLAGS) -c $< -o $@
-
 $(NAME): $(OBJS)
-	@make -C $(LIBFT_PATH)
-	@make -C $(GNL_PATH)
-	gcc $(OBJS) $(FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(FLAGS_MLX) $(FLAGS_FT) -o $(NAME)
 
 clean:
-	@make fclean -C $(LIBFT_PATH)
-	@make fclean -C $(GNL_PATH)
-	rm -f $(OBJS)
+	$(RM) $(OBJS)
+	$(RM) -r $(DIR_OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
-re: clean all
+re: fclean all
 
-.PHONY: clean fclean re all bonus
+.PHONY: all clean fclean re
