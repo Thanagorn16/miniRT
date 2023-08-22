@@ -1,54 +1,36 @@
 #include "minirt.h"
 
-void	set_amb(char **set, t_rt *rt)
+void	set_sp(char **set, t_rt *rt)
 {
-	int	len;
+	int	static	i;
 
-	rt->amb.ratio = atof(set[1]);
-	len = ft_2dstrlen(set);
-	rt->amb.rgb.r = atoi(set[len - 3]);
-	rt->amb.rgb.g = atoi(set[len - 2]);
-	rt->amb.rgb.b = atoi(set[len - 1]);
+	rt->sp[i].pos = set_cor(set[1], set[2], set[3]);
+	rt->sp[i].dia = ft_atof(set[4]);
+	rt->sp[i].radius = ft_atof(set[4]) / 2;
+	rt->sp[i].clr = set_clr(set);
 }
 
-t_cor set_cor(char *set1, char *set2, char *set3)
+void	set_pl(char **set, t_rt *rt)
 {
-	t_cor	cor;
+	int	static	i;
 
-	cor.x = atof(set1);
-	cor.y = atof(set2);
-	cor.z = atof(set3);
-	return (cor);
+	rt->pl[i].pos = set_cor(set[1], set[2], set[3]);
+	rt->pl[i].dir = set_cor(set[4], set[5], set[6]);
+	rt->pl[i].clr = set_clr(set);
 }
 
-void	set_cam(char **set, t_rt *rt)
+void	set_cy(char **set, t_rt *rt)
 {
-	rt->cam.pos = set_cor(set[1], set[2], set[3]);
-	rt->cam.dir = set_cor(set[4], set[5], set[6]);
-	// rt->cam.pos.x = atof(set[1]);
-	// rt->cam.pos.y = atof(set[2]);
-	// rt->cam.pos.z = atof(set[3]);
-	// rt->cam.dir.x = atof(set[4]);
-	// rt->cam.dir.y = atof(set[5]);
-	// rt->cam.dir.z = atof(set[6]);
-	rt->cam.fov = atoi(set[7]);
+	int	static	i;
+
+	rt->cy[i].pos = set_cor(set[1], set[2], set[3]);
+	rt->cy[i].dir = set_cor(set[4], set[5], set[6]);
+	rt->cy[i].dia = ft_atof(set[7]);
+	rt->cy[i].length = ft_atof(set[8]);
+	rt->pl[i].clr = set_clr(set);
 }
 
-void	set_light(char **set, t_rt *rt)
-{
-	int	len;
-
-	rt->light.pos.x = atof(set[1]);
-	rt->light.pos.y = atof(set[2]);
-	rt->light.pos.z = atof(set[3]);
-	rt->light.ratio = atof(set[4]);
-	len = ft_2dstrlen(set);
-	rt->amb.rgb.r = atoi(set[len - 3]);
-	rt->amb.rgb.g = atoi(set[len - 2]);
-	rt->amb.rgb.b = atoi(set[len - 1]);
-}
-
-int	init_elem(char **av, t_rt *rt)
+int	set_elem(char **av, t_rt *rt)
 {
 	char	*tmp;
 	char	**set;
@@ -68,6 +50,12 @@ int	init_elem(char **av, t_rt *rt)
 			set_cam(set, rt);
 		if (ft_strcmp(set[0], "L") == 0)
 			set_light(set, rt);
+		if (ft_strcmp(set[0], "sp") == 0)
+			set_sp(set, rt);
+		if (ft_strcmp(set[0], "pl") == 0)
+			set_pl(set, rt);
+		if (ft_strcmp(set[0], "cy") == 0)
+			set_pl(set, rt);
 		// printf("%d\n", rt->amb.rgb.r);
 		// printf("%d\n", rt->amb.rgb.g);
 		// printf("%d\n", rt->amb.rgb.b);
@@ -88,13 +76,18 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 		return (EXIT_FAILURE);
+
+	//check input file
 	name = ft_split(av[1], '.');
 	len = ft_2dstrlen(name) - 1;
 	if (ft_strcmp(name[len], "rt") != 0)
 		return (EXIT_FAILURE);
 	free_2dstr(name);
-	get_shape(av, &rt);
-	if (init_elem(av, &rt) == 1)
+
+	// process data
+	count_shape(av, &rt);
+	alloc_shape(&rt);
+	if (set_elem(av, &rt) == 1)
 		return (EXIT_FAILURE);
 	// printf("%f\n", rt.amb.ratio);
 	// exit(0);

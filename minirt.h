@@ -1,12 +1,9 @@
-#ifndef MINI_RT
-# define MINI_RT
+#ifndef STRUCT_PARSE_H
+# define STRUCT_PARSE_H
 
-# include <stdio.h>
-# include <fcntl.h>
-# include "libft/libft.h"
-# include "get_next_line/get_next_line.h"
-
-# define DIR 1
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 typedef struct s_cor
 {
@@ -14,7 +11,6 @@ typedef struct s_cor
 	float	y;
 	float	z;
 } t_cor;
-
 
 typedef struct s_rgb
 {
@@ -25,8 +21,8 @@ typedef struct s_rgb
 
 typedef struct s_ambien
 {
-	float   ratio;
-	t_rgb	rgb;
+	t_rgb	clr;
+	float	ratio;
 } t_ambien;
 
 typedef struct s_cam
@@ -39,30 +35,41 @@ typedef struct s_cam
 typedef struct s_light
 {
 	t_cor	pos;
-	float   ratio;
-	t_rgb	rgb;
+	t_rgb	clr;
+	float	ratio; //brightness
 } t_light;
 
 typedef struct s_pl
 {
-	t_cor	cor;
-	t_rgb	rgb;
+	t_cor	pos;
+	t_cor	dir;
+	t_rgb	clr;
 } t_pl;
 
 typedef struct s_sp
 {
-	t_cor	cor;
+	t_cor	pos;
+	t_rgb	clr;
+	float	dia;
 	float	radius;
-	t_rgb	rgb;
 } t_sp;
 
 typedef struct s_cy
 {
-	t_cor	cor;
+	t_cor	pos;
+	t_cor	dir;
+	t_rgb	clr;
 	float	length;
 	float	dia;
-	t_rgb	rgb;
 } t_cy;
+
+// Amount of object
+typedef struct s_amt
+{
+	int	sp;
+	int	pl;
+	int	cy;
+}	t_amt;
 
 typedef struct s_rt
 {
@@ -72,20 +79,21 @@ typedef struct s_rt
 	t_pl		*pl;
 	t_sp		*sp;
 	t_cy		*cy;
-	int			npl;
-	int			nsp;
-	int			ncy;
+	t_amt		amt;
 	int			fd;
 } t_rt;
 
-int	    ft_strcmp(const char *s1, const char *s2);
-size_t	ft_2dstrlen(char **str);
-void	free_2dstr(char **ptr);
-char	**split2(char const *s, char c1, char c2);
 float	ft_atof(const char *str);
-void	get_shape(char **av, t_rt *rt);
-void	set_rgb(char **set, t_rt *rt);
+// Create random
+void	create_rt(t_rt *rt);
+// non shapes
+t_cor	set_cor(char *set1, char *set2, char *set3);
+t_rgb	set_clr(char **set);
 void	set_amb(char **set, t_rt *rt);
-// void	set_cor(char **set, t_rt *rt, int mode);
+void	set_cam(char **set, t_rt *rt);
+void	set_light(char **set, t_rt *rt);
+// shape(s)
+void	count_shape(char **av, t_rt *rt);
+void	alloc_shape(t_rt *rt);
 
 #endif
