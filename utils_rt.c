@@ -1,5 +1,27 @@
 #include "minirt.h"
 
+t_cor set_cor(char *set1, char *set2, char *set3)
+{
+	t_cor	cor;
+
+	cor.x = ft_atof(set1);
+	cor.y = ft_atof(set2);
+	cor.z = ft_atof(set3);
+	return (cor);
+}
+
+t_rgb	set_clr(char **set)
+{
+	t_rgb	clr;
+	int		len;
+
+	len = ft_2dstrlen(set);
+	clr.r = atoi(set[len - 3]);
+	clr.g = atoi(set[len - 2]);
+	clr.b = atoi(set[len - 1]);
+	return (clr);
+}
+
 // count the number of arithmetic shape
 void	count_shape(char **av, t_rt *rt)
 {

@@ -14,7 +14,8 @@ LIBFT_SRCS = ft_strlen.c ft_split.c ft_atoi.c
 
 GNL_SRCS = get_next_line.c get_next_line_utils.c
 
-MINIRT_SRCS = main.c utils.c utils_rt.c split2.c ft_atof.c 
+MINIRT_SRCS = main.c utils.c utils_rt.c split2.c ft_atof.c init_shape.c init_non_shape.c \
+				display.c
 
 SRCS = $(MINIRT_SRCS) \
 						$(addprefix $(LIBFT_PATH), $(LIBFT_SRCS)) \
