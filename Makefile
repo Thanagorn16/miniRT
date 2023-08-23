@@ -9,7 +9,7 @@ GNL_PATH	= get_next_line/
 
 DIR_SRCS	= srcs
 DIR_OBJS	= objs
-DIR_SUBS	= main math object create setting render parsing
+DIR_SUBS	= main math object render parsing
 
 SRCS_DIRS	= $(foreach dir, $(DIR_SUBS), $(addprefix $(DIR_SRCS)/, $(dir)))
 OBJS_DIRS	= $(foreach dir, $(DIR_SUBS), $(addprefix $(DIR_OBJS)/, $(dir)))

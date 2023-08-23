@@ -9,7 +9,7 @@ bool	hit_plane(t_ray ray, t_hpl *hit, t_pl pl)
 	if ((denom >= 0 && denom < EPSILON) || (denom <= 0 && denom > -EPSILON))
 		return (false);
 	distance = vec_dot(vec_sub(pl.pos, ray.ori), pl.dir) / denom;
-	if (distance >= 0)
+	if (distance > 0.00f && distance < hit->distance)
 	{
 		hit->point = vec_add(ray.ori, vec_scalar(ray.dir, distance)); // closest point of sphere on matrix
 		hit->point = vec_add(hit->point, ray.ori); // move hit point back to the real position

@@ -57,7 +57,7 @@ static int	ray_tracing(t_ray ray, t_obj *obj)
 			break ;
 		}
 		tmp = ambient_light(clr, hit.clr, obj->ambient);
-		// tmp = point_light(tmp, hit, obj->light);
+		tmp = point_light(tmp, hit, obj->light);
 		clr = add_clr(clr, ratio_clr(tmp, mul));
 		mul *= 0.7f;
 		ray = reflect_ray(ray, &hit, obj->light);
