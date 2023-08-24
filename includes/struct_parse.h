@@ -12,6 +12,11 @@
 #include "../libft/libft.h"
 #include "../get_next_line/get_next_line.h"
 
+#define FAILURE_RATIO "Ratio must not be less than 0.0 and must not be more than 0.1\n"
+#define FAILURE_RGB "RGB must not be less than 0 and must not be more than 255\n"
+#define FAILURE_VEC "Vector must not be less than -1.0 and must not be more than 1.0\n"
+#define FAILURE_FOV "FOV must not be less than 0 and must not be more than 180\n"
+
 typedef struct s_cor
 {
 	float	x;
@@ -69,7 +74,7 @@ typedef struct s_cy
 	t_cor	top;
 	t_cor	bot;
 	t_rgb	clr;
-	float	length; // height
+	float	height;
 	float	dia;
 	float	radius;
 	float	m;
@@ -95,19 +100,14 @@ typedef struct s_rt
 	int			fd;
 } t_rt;
 
-int parsing(int ac, char **av, t_rt *rt);
-
-float	ft_atof(const char *str);
-char	**split2(char const *s, char c1, char c2);
-void	display(t_rt *rt);
 // Create random
 void	create_rt(t_rt *rt);
 // non shapes
 t_cor	set_cor(char *set1, char *set2, char *set3);
 t_rgb	set_clr(char **set);
-void	set_amb(char **set, t_rt *rt);
-void	set_cam(char **set, t_rt *rt);
-void	set_light(char **set, t_rt *rt);
+int		set_amb(char **set, t_rt *rt);
+int		set_cam(char **set, t_rt *rt);
+int		set_light(char **set, t_rt *rt);
 // shape(s)
 void	count_shape(char **av, t_rt *rt);
 void	alloc_shape(t_rt *rt);
@@ -118,5 +118,9 @@ void	set_cy(char **set, t_rt *rt);
 int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_2dstrlen(char **str);
 void	free_2dstr(char **ptr);
-
+// others
+int		parsing(int ac, char **av, t_rt *rt);
+float	ft_atof(const char *str);
+char	**split2(char const *s, char c1, char c2);
+void	display(t_rt *rt);
 #endif

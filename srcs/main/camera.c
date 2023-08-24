@@ -13,7 +13,7 @@ bool	setting_camera(t_param *par, t_cam cam)
 	vp_height = ((float)WD_HEIGHT / (float)WD_WIDTH) * vp_width; // viewport ratio
 	printf("w:%f h:%f\n", vp_width, vp_height);
 
-	// Change all axis to along with camera coordiate
+	// Change all axis to align with camera coordiate (direction)
 	axis_z = vec_norm(cam.dir);
 	axis_x = vec_cross(axis_z, (t_cor){0, 1.00, 0}); // 2nd para : vector that point up along with y axis
 	axis_y = vec_cross(axis_x, axis_z);

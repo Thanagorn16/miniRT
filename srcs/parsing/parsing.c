@@ -15,11 +15,14 @@ int	set_elem(char **av, t_rt *rt)
 		if (!set)
 			return (EXIT_FAILURE);
 		if (ft_strcmp(set[0], "A") == 0)
-			set_amb(set, rt);
+			if (set_amb(set, rt))
+				exit(EXIT_FAILURE);
 		if (ft_strcmp(set[0], "C") == 0)
-			set_cam(set, rt);
+			if (set_cam(set, rt))
+				exit(EXIT_FAILURE);
 		if (ft_strcmp(set[0], "L") == 0)
-			set_light(set, rt);
+			if (set_light(set, rt))
+				exit(EXIT_FAILURE);
 		if (ft_strcmp(set[0], "sp") == 0)
 			set_sp(set, rt);
 		if (ft_strcmp(set[0], "pl") == 0)
@@ -33,7 +36,7 @@ int	set_elem(char **av, t_rt *rt)
 
 int parsing(int ac, char **av, t_rt *rt)
 {
-	char    **name;
+	char	**name;
 	int		len;
 
 	if (ac != 2)
@@ -53,6 +56,7 @@ int parsing(int ac, char **av, t_rt *rt)
 		return (EXIT_FAILURE);
 
 	// check data (remove the comment below to use the function)
-	// display(&rt);
+	// display(rt);
+	// exit(0);
 	return (EXIT_SUCCESS);
 }

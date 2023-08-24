@@ -17,7 +17,7 @@ typedef struct s_image
 typedef struct s_cmr
 {
 	t_cor	post;
-	t_cor	fpro;
+	t_cor	fpro; //first projection
 	t_cor	hor;
 	t_cor	ver;
 }	t_cmr;

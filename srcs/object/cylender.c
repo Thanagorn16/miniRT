@@ -58,7 +58,7 @@ static bool	cylender_cap(t_ray ray, t_hpl *hit, t_cy cy, float t_closest)
 // 		return (false);
 // 	dis_bot = vec_dot(vec_sub(cy.bot, ray.ori), cy.dir) / denom;
 // 	hit->distance = ft_min(dis_top, dis_bot);
-	
+
 // // 		hit->point = vec_add(ray.ori, vec_scalar(ray.dir, distance)); // closest point of sphere on matrix
 // // 		hit->point = vec_add(hit->point, ray.ori); // move hit point back to the real position
 // // 		hit->dir = vec_norm(pl.dir);
@@ -103,10 +103,8 @@ bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy cy)
 	// 	t_closest = (-qf.b + sqrt(qf.disc)) / (2 * qf.a);
 	if (t_closest > 0.00f && t_closest < hit->distance)
 	{
-		cy.m = vec_dot(ray.dir, cy.dir) * t_closest + vec_dot(ray.oc, cy.dir);
-		if (i++ == 0)
-			printf("m :%f\n", cy.m);
-		if (cy.m > cy.length / 2 || cy.m < -(cy.length / 2))
+		cy.m = vec_dot(ray.dir, cy.dir) * t_closest + vec_dot(ray.ori, cy.dir);
+		if (cy.m > cy.height / 2 || cy.m < -(cy.height / 2))
 			return (cylender_cap(ray, hit, cy, t_closest));
 		return (closest_cylender(ray, hit, cy, t_closest));
 	}

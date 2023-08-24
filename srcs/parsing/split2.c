@@ -9,8 +9,8 @@ static int	ft_countword(char const *s, char c1, char c2)
 	cw = 0;
 	while (s[i])
 	{
-        while (s[i] && (s[i] == c1 || s[i] == c2)) // not the target
-            i++;
+		while (s[i] && (s[i] == c1 || s[i] == c2)) // not the target
+			i++;
 		while (s[i] && (s[i] != c1 || s[i] == c2))
 		{
 			i++;
@@ -18,7 +18,7 @@ static int	ft_countword(char const *s, char c1, char c2)
 				cw++;
 		}
 	}
-    // printf("%d\n", cw);
+	// printf("%d\n", cw);
 	return (cw);
 }
 
@@ -70,7 +70,7 @@ char	**split2(char const *s, char c1, char c2)
 	if (!s)
 		return (NULL);
 	cw = ft_countword(s, c1, c2);
-    // printf("cw:%d\n", cw);
+	// printf("cw:%d\n", cw);
 	split = (char **)malloc(sizeof(char *) * (cw + 1));
 	if (!split)
 		return (NULL);
