@@ -5,6 +5,7 @@ bool	hit_plane(t_ray ray, t_hpl *hit, t_pl pl)
 	float	denom;
 	float	distance;
 
+	pl.dir = vec_norm(pl.dir); // add
 	denom = vec_dot(ray.dir, pl.dir);
 	if ((denom >= 0 && denom < EPSILON) || (denom <= 0 && denom > -EPSILON))
 		return (false);

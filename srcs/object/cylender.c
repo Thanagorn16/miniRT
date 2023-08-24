@@ -3,7 +3,7 @@
 static bool	closest_cylender(t_ray ray, t_hpl *hit, t_cy cy, float t_closest)
 {
 	hit->distance = t_closest;
-	hit->point = vec_add(ray.ori, vec_scalar(ray.dir, hit->distance)); // closest point of sphere on matrix
+	hit->point = vec_add(ray.oc, vec_scalar(ray.dir, hit->distance)); // closest point of sphere on matrix
 	hit->dir = vec_norm(hit->point);
 	hit->point = vec_add(hit->point, cy.pos); // move hit point back to the real position
 	hit->clr = cy.clr;
@@ -14,30 +14,34 @@ static bool	closest_cylender(t_ray ray, t_hpl *hit, t_cy cy, float t_closest)
 
 static bool	cylender_cap(t_ray ray, t_hpl *hit, t_cy cy, float t_closest)
 {
-	return (false); // Test
 	float	denom;
 	float	distance;
+	t_cor	position;
+	static int i = 0;
 
 	if (cy.m > 0)
-		cy.pos = cy.top;
+		position = cy.top;
 	else
-		cy.pos = cy.bot;
+		position = cy.bot;
+	// if (i++ == 0)
+	// 	debug_cor(ray.ori, "ori: ");
 	denom = vec_dot(ray.dir, cy.dir);
 	if ((denom >= 0 && denom < EPSILON) || (denom <= 0 && denom > -EPSILON))
 		return (false);
-	distance = vec_dot(vec_sub(cy.pos, ray.ori), cy.dir) / denom;
+	distance = vec_dot(vec_sub(position, ray.ori), cy.dir) / denom;
 	if (distance > 0.00f && distance < hit->distance)
 	{
+		// if (vec_length(vec_sub(ray.ori, cy.pos)) > cy.radius)
 		hit->point = vec_add(ray.ori, vec_scalar(ray.dir, distance)); // closest point of sphere on matrix
+		if (vec_length(vec_sub(hit->point, position)) > cy.radius)
+			return (false);
 		hit->point = vec_add(hit->point, ray.ori); // move hit point back to the real position
 		hit->dir = vec_norm(cy.dir);
 		if (denom > 0)
 			hit->dir = vec_scalar(hit->dir, -1);
 		hit->clr = cy.clr;
 		hit->hit = true;
-		// if ()
-		// 	return (true);
-		return (false);
+		return (true);
 	}
 	return (false);
 }
@@ -83,12 +87,14 @@ bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy cy)
 	t_fml	fml;
 	float	disc;
 	float	t_closest;
+	static int i = 0;
 
-	ray.ori = vec_sub(ray.ori, cy.pos);
+	cy.dir = vec_norm(cy.dir);
+	ray.oc = vec_sub(ray.ori, cy.pos);
 	fml.a = vec_dot(ray.dir, ray.dir) - ft_pow2(vec_dot(ray.dir, cy.dir));
-	fml.b = 2 * (vec_dot(ray.dir, ray.ori) - vec_dot(ray.dir, cy.dir)
-		* vec_dot(ray.ori, cy.dir));
-	fml.c = vec_dot(ray.ori, ray.ori) - ft_pow2(vec_dot(ray.ori, cy.dir)) - ft_pow2(cy.radius);
+	fml.b = 2 * (vec_dot(ray.dir, ray.oc) - vec_dot(ray.dir, cy.dir)
+		* vec_dot(ray.oc, cy.dir));
+	fml.c = vec_dot(ray.oc, ray.oc) - ft_pow2(vec_dot(ray.oc, cy.dir)) - ft_pow2(cy.radius);
 	disc = discriminant(fml.a, fml.b, fml.c);
 	if (disc < 0.0f)
 		return (false);
@@ -97,7 +103,9 @@ bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy cy)
 	// 	t_closest = (-qf.b + sqrt(qf.disc)) / (2 * qf.a);
 	if (t_closest > 0.00f && t_closest < hit->distance)
 	{
-		cy.m = vec_dot(ray.dir, cy.dir) * t_closest + vec_dot(ray.ori, cy.dir);
+		cy.m = vec_dot(ray.dir, cy.dir) * t_closest + vec_dot(ray.oc, cy.dir);
+		if (i++ == 0)
+			printf("m :%f\n", cy.m);
 		if (cy.m > cy.length / 2 || cy.m < -(cy.length / 2))
 			return (cylender_cap(ray, hit, cy, t_closest));
 		return (closest_cylender(ray, hit, cy, t_closest));

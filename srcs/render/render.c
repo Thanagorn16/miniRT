@@ -26,12 +26,12 @@ bool	hit_object(t_ray ray, t_hpl *hit, t_obj *obj)
 
 	hit->distance = FLT_MAX;
 	hit->hit = false;
-	// i = 0;
-	// while (i < obj->amt.sp)
-	// 	hit_sphere(ray, hit, obj->sp[i++]);
-	// i = 0;
-	// while (i < obj->amt.pl)
-	// 	hit_plane(ray, hit, obj->pl[i++]);
+	i = 0;
+	while (i < obj->amt.sp)
+		hit_sphere(ray, hit, obj->sp[i++]);
+	i = 0;
+	while (i < obj->amt.pl)
+		hit_plane(ray, hit, obj->pl[i++]);
 	i = 0;
 	while (i < obj->amt.cy)
 		hit_cylender(ray, hit, obj->cy[i++]);

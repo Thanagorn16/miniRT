@@ -50,6 +50,7 @@ typedef struct s_ray
 {
 	t_cor	dir; // Ray direction
 	t_cor	ori; // Camera Position
+	t_cor	oc; // Original Center (ori - obj.pos)
 }	t_ray;
 
 typedef struct s_hitpayload
