@@ -36,7 +36,7 @@ int	set_elem(char **av, t_rt *rt)
 
 int parsing(int ac, char **av, t_rt *rt)
 {
-	char    **name;
+	char	**name;
 	int		len;
 
 	if (ac != 2)
@@ -56,7 +56,7 @@ int parsing(int ac, char **av, t_rt *rt)
 		return (EXIT_FAILURE);
 
 	// check data (remove the comment below to use the function)
-	display(rt);
-	exit(0);
+	// display(rt);
+	// exit(0);
 	return (EXIT_SUCCESS);
 }

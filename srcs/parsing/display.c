@@ -29,7 +29,7 @@ void	display(t_rt *rt)
 
 	printf("\nPL\n");
 	printf("amt: %d\n", rt->amt.pl);
-	printf("pos x: %f\n", rt->pl[1].pos.x);
+	printf("pos x: %f\n", rt->pl[0].pos.x);
 	printf("pos y: %f\n", rt->pl[0].pos.y);
 	printf("pos z: %f\n", rt->pl[0].pos.z);
 	printf("dir x: %f\n", rt->pl[0].dir.x);
@@ -60,7 +60,7 @@ void	display(t_rt *rt)
 	printf("dir z: %f\n", rt->cy[0].dir.z);
 	printf("diameter: %f\n", rt->cy[0].dia);
 	printf("radius: %f\n", rt->cy[0].radius);
-	printf("length: %f\n", rt->cy[0].length);
+	printf("height: %f\n", rt->cy[0].height);
 	printf("cy r: %d\n", rt->cy[0].clr.r);
 	printf("cy g: %d\n", rt->cy[0].clr.g);
 	printf("cy b: %d\n", rt->cy[0].clr.b);

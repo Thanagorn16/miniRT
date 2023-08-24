@@ -29,7 +29,7 @@ void	set_cy(char **set, t_rt *rt)
 	rt->cy[i].dir = set_cor(set[4], set[5], set[6]);
 	rt->cy[i].dia = ft_atof(set[7]);
 	rt->cy[i].radius = ft_atof(set[7]) / 2;
-	rt->cy[i].length = ft_atof(set[8]);
+	rt->cy[i].height = ft_atof(set[8]);
 	rt->cy[i].clr = set_clr(set);
 	i++;
 }

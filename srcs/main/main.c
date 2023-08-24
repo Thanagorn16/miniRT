@@ -8,9 +8,9 @@ bool	setting_cylender(t_rt *rt)
 	while (i < rt->amt.cy)
 	{
 		rt->cy[i].top = vec_add(rt->cy[i].pos,
-			vec_scalar(rt->cy[i].dir, (rt->cy[i].length / 2)));
+			vec_scalar(rt->cy[i].dir, (rt->cy[i].height / 2)));
 		rt->cy[i].bot = vec_sub(rt->cy[i].pos,
-			vec_scalar(rt->cy[i].dir, (rt->cy[i].length / 2)));
+			vec_scalar(rt->cy[i].dir, (rt->cy[i].height / 2)));
 		i++;
 	}
 	return (true);
@@ -25,7 +25,7 @@ bool	init_object(t_rt *rt, t_obj *obj)
 	obj->amt = rt->amt;
 	obj->sp = rt->sp;
 	obj->pl = rt->pl;
-	setting_cylender(rt);	
+	setting_cylender(rt);
 	obj->cy = rt->cy;
 	return (true);
 }

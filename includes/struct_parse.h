@@ -74,7 +74,7 @@ typedef struct s_cy
 	t_cor	top;
 	t_cor	bot;
 	t_rgb	clr;
-	float	length; // height
+	float	height;
 	float	dia;
 	float	radius;
 	float	m;
