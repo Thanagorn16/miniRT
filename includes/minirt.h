@@ -59,6 +59,7 @@ float	ft_pow2(float num);
 float	ft_abs(float num);
 float	ft_radius(int degree);
 float	ft_min(float a, float b);
+float	discriminant(float a, float b, float c);
 // Vector
 t_cor	vec_add(t_cor a, t_cor b);
 t_cor	vec_sub(t_cor a, t_cor b);

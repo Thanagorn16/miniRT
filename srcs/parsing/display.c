@@ -1,4 +1,4 @@
-#include "struct_parse.h"
+#include "minirt.h"
 
 void	display(t_rt *rt)
 {

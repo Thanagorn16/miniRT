@@ -1,4 +1,4 @@
-#include "struct_parse.h"
+#include "minirt.h"
 
 void	set_amb(char **set, t_rt *rt)
 {

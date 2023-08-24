@@ -1,4 +1,4 @@
-#include "struct_parse.h"
+#include "minirt.h"
 
 t_cor set_cor(char *set1, char *set2, char *set3)
 {

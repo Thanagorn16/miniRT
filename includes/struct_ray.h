@@ -2,7 +2,7 @@
 # define STRUCT_RAY_H
 
 # include <stdbool.h>
-# include "struct_parse.h" // Will update from Prach Man
+# include "struct_parse.h"
 
 // Image structure
 typedef struct s_image
@@ -13,7 +13,7 @@ typedef struct s_image
 	int		line_len;
 	int		endian;
 }	t_image;
-// Camera
+
 typedef struct s_cmr
 {
 	t_cor	post;
@@ -21,23 +21,22 @@ typedef struct s_cmr
 	t_cor	hor;
 	t_cor	ver;
 }	t_cmr;
-// Pixel
-typedef struct s_pix
+
+typedef struct s_formula
+{
+	float	a;
+	float	b;
+	float	c;
+}	t_fml;
+
+typedef struct s_pixel
 {
 	int	x;
 	int	y;
 	int	clr;
 }	t_pix;
-// // Sphere
-// typedef struct s_sphere
-// {
-// 	t_cor	post;
-// 	float	diameter;
-// 	float	r;
-// 	t_rgb	clr;
-// }	t_sph;
-// Object
-typedef struct s_obj
+
+typedef struct s_object
 {
 	t_light	light;
 	t_sp	*sp;
@@ -46,6 +45,7 @@ typedef struct s_obj
 	t_amt	amt;
 	t_rgb	ambient;
 }	t_obj;
+
 typedef struct s_ray
 {
 	t_cor	dir; // Ray direction
@@ -62,7 +62,6 @@ typedef struct s_hitpayload
 	bool	hit;
 }	t_hpl;
 
-// mlx
 typedef struct s_param
 {
 	t_image	img;

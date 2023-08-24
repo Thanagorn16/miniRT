@@ -1,5 +1,22 @@
 #include "minirt.h"
 
+bool	setting_cylender(t_rt *rt)
+{
+	int	i;
+
+	i = 0;
+	while (i < rt->amt.cy)
+	{
+		rt->cy[i].top = vec_add(rt->cy[i].pos,
+			vec_scalar(rt->cy[i].dir, (rt->cy[i].length / 2)));
+		rt->cy[i].bot = vec_sub(rt->cy[i].pos,
+			vec_scalar(rt->cy[i].dir, (rt->cy[i].length / 2)));
+		i++;
+	}
+	return (true);
+}
+
+
 bool	init_object(t_rt *rt, t_obj *obj)
 {
 	obj->light.clr = ratio_clr(rt->light.clr, rt->light.ratio);
@@ -8,6 +25,7 @@ bool	init_object(t_rt *rt, t_obj *obj)
 	obj->amt = rt->amt;
 	obj->sp = rt->sp;
 	obj->pl = rt->pl;
+	setting_cylender(rt);	
 	obj->cy = rt->cy;
 	return (true);
 }
@@ -22,7 +40,6 @@ int	main(int ac, char **av)
 		return (1);
 	init_object(&rt, &obj);
 	// parse data
-	// create_rt(&rt);
 	setting_camera(&par, rt.cam);
 	// cmr_post(par.cmr); // debug
 	debug_cor(obj.sp[0].pos, "sp: ");

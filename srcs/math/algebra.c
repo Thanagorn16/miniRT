@@ -23,3 +23,16 @@ float	ft_radius(int degree)
 {
 	return ((float)degree * (M_PI / 180));
 }
+
+float	discriminant(float a, float b, float c)
+{
+	float	num;
+
+	num = ft_pow2(b) - 4 * a * c;
+	if (num < 0)
+		return (-1);
+	else if (num)
+		return (num);
+	else
+		return (0);
+}

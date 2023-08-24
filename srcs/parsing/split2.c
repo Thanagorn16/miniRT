@@ -1,4 +1,4 @@
-#include "struct_parse.h"
+#include "minirt.h"
 
 static int	ft_countword(char const *s, char c1, char c2)
 {

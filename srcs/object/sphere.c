@@ -1,18 +1,5 @@
 #include "minirt.h"
 
-static float	discriminant(float a, float b, float c)
-{
-	float	num;
-
-	num = ft_pow2(b) - 4 * a * c;
-	if (num < 0)
-		return (-1);
-	else if (num)
-		return (num);
-	else
-		return (0);
-}
-
 static bool	closest_sphere(t_ray ray, t_hpl *hit, t_sp sp)
 {
 	hit->point = vec_add(ray.ori, vec_scalar(ray.dir, hit->distance)); // closest point of sphere on matrix

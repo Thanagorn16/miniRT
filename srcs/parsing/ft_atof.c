@@ -6,11 +6,11 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:08:46 by truangsi          #+#    #+#             */
-/*   Updated: 2023/08/23 17:27:12 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/08/23 23:00:22 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct_parse.h"
+#include "minirt.h"
 
 float	ft_atof(const char *str)
 {

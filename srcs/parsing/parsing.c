@@ -1,4 +1,4 @@
-#include "struct_parse.h"
+#include "minirt.h"
 
 int	set_elem(char **av, t_rt *rt)
 {

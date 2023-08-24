@@ -61,14 +61,18 @@ typedef struct s_sp
 	float	radius;
 } t_sp;
 
+// m = is a scalar that determines the closest point on the axis to the hit point.
 typedef struct s_cy
 {
 	t_cor	pos;
 	t_cor	dir;
+	t_cor	top;
+	t_cor	bot;
 	t_rgb	clr;
-	float	length;
+	float	length; // height
 	float	dia;
 	float	radius;
+	float	m;
 } t_cy;
 
 // Amount of object
