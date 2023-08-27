@@ -7,15 +7,29 @@ bool	setting_cylender(t_rt *rt)
 	i = 0;
 	while (i < rt->amt.cy)
 	{
+		rt->cy[i].dir = vec_norm(rt->cy[i].dir);
 		rt->cy[i].top = vec_add(rt->cy[i].pos,
 			vec_scalar(rt->cy[i].dir, (rt->cy[i].height / 2)));
 		rt->cy[i].bot = vec_sub(rt->cy[i].pos,
 			vec_scalar(rt->cy[i].dir, (rt->cy[i].height / 2)));
+		debug_cor(rt->cy[i].pos, "cy: ");
 		i++;
 	}
 	return (true);
 }
 
+bool	setting_plane(t_rt *rt)
+{
+	int	i;
+
+	i = 0;
+	while (i < rt->amt.pl)
+	{
+		rt->pl[i].dir = vec_norm(rt->pl[i].dir);
+		i++;
+	}
+	return (true);
+}
 
 bool	init_object(t_rt *rt, t_obj *obj)
 {
@@ -26,6 +40,7 @@ bool	init_object(t_rt *rt, t_obj *obj)
 	obj->sp = rt->sp;
 	obj->pl = rt->pl;
 	setting_cylender(rt);
+	setting_plane(rt);
 	obj->cy = rt->cy;
 	return (true);
 }
@@ -39,12 +54,7 @@ int	main(int ac, char **av)
 	if (parsing(ac, av, &rt))
 		return (1);
 	init_object(&rt, &obj);
-	// parse data
 	setting_camera(&par, rt.cam);
-	// cmr_post(par.cmr); // debug
-	debug_cor(obj.sp[0].pos, "sp: ");
-	printf("radius: %f\n", obj.sp[0].radius);
-	// exit(0);
 
 	// mlx init
 	init_window(&par);

@@ -17,59 +17,30 @@ static bool	cylender_cap(t_ray ray, t_hpl *hit, t_cy cy, float t_closest)
 	float	denom;
 	float	distance;
 	t_cor	position;
-	static int i = 0;
+	t_cor	tmp_hitpoint; // use tmp before calculate vec length ,So in false case hit-point will don't change value
 
 	if (cy.m > 0)
 		position = cy.top;
 	else
 		position = cy.bot;
-	// if (i++ == 0)
-	// 	debug_cor(ray.ori, "ori: ");
 	denom = vec_dot(ray.dir, cy.dir);
 	if ((denom >= 0 && denom < EPSILON) || (denom <= 0 && denom > -EPSILON))
 		return (false);
 	distance = vec_dot(vec_sub(position, ray.ori), cy.dir) / denom;
-	if (distance > 0.00f && distance < hit->distance)
-	{
-		// if (vec_length(vec_sub(ray.ori, cy.pos)) > cy.radius)
-		hit->point = vec_add(ray.ori, vec_scalar(ray.dir, distance)); // closest point of sphere on matrix
-		if (vec_length(vec_sub(hit->point, position)) > cy.radius)
-			return (false);
-		hit->point = vec_add(hit->point, ray.ori); // move hit point back to the real position
-		hit->dir = vec_norm(cy.dir);
-		if (denom > 0)
-			hit->dir = vec_scalar(hit->dir, -1);
-		hit->clr = cy.clr;
-		hit->hit = true;
-		return (true);
-	}
-	return (false);
+	if (distance < 0.00f && distance > hit->distance)
+		return (false);
+	tmp_hitpoint = vec_add(ray.ori, vec_scalar(ray.dir, distance)); // closest point of sphere on matrix
+	if (vec_length(vec_sub(tmp_hitpoint, position)) > cy.radius)
+		return (false);
+	hit->distance = distance;
+	hit->point = tmp_hitpoint;
+	hit->dir = cy.dir;
+	if (denom > 0)
+		hit->dir = vec_scalar(hit->dir, -1);
+	hit->clr = cy.clr;
+	hit->hit = true;
+	return (true);
 }
-
-// bool	hit_disk(t_ray ray, t_hpl *hit, t_cy cy)
-// {
-// 	// vec_dot(ray.dir, cy.dir) * t + vec_dot(ray.ori, cy.dir);
-// 	float	dis_top;
-// 	float	dis_bot;
-
-// 	dis_top = vec_dot(vec_sub(cy.top, ray.ori), cy.dir) / denom;
-// 	denom = vec_dot(ray.dir, cy.bot);
-// 	if ((denom >= 0 && denom < EPSILON) || (denom <= 0 && denom > -EPSILON))
-// 		return (false);
-// 	dis_bot = vec_dot(vec_sub(cy.bot, ray.ori), cy.dir) / denom;
-// 	hit->distance = ft_min(dis_top, dis_bot);
-
-// // 		hit->point = vec_add(ray.ori, vec_scalar(ray.dir, distance)); // closest point of sphere on matrix
-// // 		hit->point = vec_add(hit->point, ray.ori); // move hit point back to the real position
-// // 		hit->dir = vec_norm(pl.dir);
-// // 		if (denom > 0)
-// // 			hit->dir = vec_scalar(hit->dir, -1);
-// // 		hit->clr = pl.clr;
-// // 		hit->hit = true;
-// // 		return (true);
-// 	}
-// 	return (false);
-// }
 
 // O is ray origin
 // D is ray direction
@@ -87,7 +58,6 @@ bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy cy)
 	t_fml	fml;
 	float	disc;
 	float	t_closest;
-	static int i = 0;
 
 	cy.dir = vec_norm(cy.dir);
 	ray.oc = vec_sub(ray.ori, cy.pos);
@@ -101,12 +71,10 @@ bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy cy)
 	t_closest = (-fml.b - sqrt(disc)) / (2 * fml.a); // closest distance from camera to sphere
 	// if (t_closest < 0)
 	// 	t_closest = (-qf.b + sqrt(qf.disc)) / (2 * qf.a);
-	if (t_closest > 0.00f && t_closest < hit->distance)
-	{
-		cy.m = vec_dot(ray.dir, cy.dir) * t_closest + vec_dot(ray.ori, cy.dir);
-		if (cy.m > cy.height / 2 || cy.m < -(cy.height / 2))
-			return (cylender_cap(ray, hit, cy, t_closest));
-		return (closest_cylender(ray, hit, cy, t_closest));
-	}
-	return (false);
+	if (t_closest < 0.00f || t_closest > hit->distance)
+		return (false);
+	cy.m = vec_dot(ray.dir, cy.dir) * t_closest + vec_dot(ray.oc, cy.dir);
+	if (cy.m > cy.height / 2 || cy.m < -(cy.height / 2))
+		return (cylender_cap(ray, hit, cy, t_closest));
+	return (closest_cylender(ray, hit, cy, t_closest));
 }

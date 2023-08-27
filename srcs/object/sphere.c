@@ -1,7 +1,8 @@
 #include "minirt.h"
 
-static bool	closest_sphere(t_ray ray, t_hpl *hit, t_sp sp)
+static bool	closest_sphere(t_ray ray, t_hpl *hit, t_sp sp, float t_closest)
 {
+	hit->distance = t_closest;
 	hit->point = vec_add(ray.ori, vec_scalar(ray.dir, hit->distance)); // closest point of sphere on matrix
 	hit->dir = vec_norm(hit->point);
 	hit->point = vec_add(hit->point, sp.pos); // move hit point back to the real position
@@ -37,11 +38,7 @@ bool	hit_sphere(t_ray ray, t_hpl *hit, t_sp sp)
 	t_closest = (-b - sqrt(disc)) / (2 * a); // closest distance from camera to sphere
 	// if (t_closest < 0)
 	// 	t_closest = (-qf.b + sqrt(qf.disc)) / (2 * qf.a);
-	if (t_closest > 0.00f && t_closest < hit->distance)
-	{
-		hit->distance = t_closest;
-		closest_sphere(ray, hit, sp);
-		return (true);
-	}
-	return (false);
+	if (t_closest < 0.00f || t_closest > hit->distance)
+		return (false);
+	return (closest_sphere(ray, hit, sp, t_closest));
 }

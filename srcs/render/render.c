@@ -60,7 +60,7 @@ static int	ray_tracing(t_ray ray, t_obj *obj)
 		tmp = point_light(tmp, hit, obj->light);
 		clr = add_clr(clr, ratio_clr(tmp, mul));
 		mul *= 0.7f;
-		ray = reflect_ray(ray, &hit, obj->light);
+		// ray = reflect_ray(ray, &hit, obj->light);
 	}
 	// if (!shadowing(&hit, obj, obj.light))
 	// 	return (0);
