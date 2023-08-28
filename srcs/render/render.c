@@ -12,14 +12,6 @@ t_ray	gen_ray(t_cmr cmr, float x, float y)
 	return (ray);
 }
 
-t_hpl	miss(void)
-{
-	t_hpl	hit;
-
-	hit.distance = -1.00f;
-	return (hit);
-}
-
 bool	hit_object(t_ray ray, t_hpl *hit, t_obj *obj)
 {
 	int	i;
@@ -28,13 +20,16 @@ bool	hit_object(t_ray ray, t_hpl *hit, t_obj *obj)
 	hit->hit = false;
 	i = 0;
 	while (i < obj->amt.sp)
-		hit_sphere(ray, hit, obj->sp[i++]);
+		hit_sphere(ray, hit, obj->sp[i++], 0);
 	i = 0;
 	while (i < obj->amt.pl)
-		hit_plane(ray, hit, obj->pl[i++]);
+		hit_plane(ray, hit, obj->pl[i++], 0);
 	i = 0;
 	while (i < obj->amt.cy)
-		hit_cylender(ray, hit, obj->cy[i++]);
+	{
+		hit_cylender(ray, hit, obj->cy[i], 0);
+		disk_intersection(ray, hit, obj->cy[i++], 0);
+	}
 	if (!hit->hit)
 		return (hit->distance = -1.00f, false);
 	return (true);
@@ -57,13 +52,11 @@ static int	ray_tracing(t_ray ray, t_obj *obj)
 			break ;
 		}
 		tmp = ambient_light(clr, hit.clr, obj->ambient);
-		tmp = point_light(tmp, hit, obj->light);
+		tmp = shadowing(tmp, hit, obj);
 		clr = add_clr(clr, ratio_clr(tmp, mul));
-		mul *= 0.7f;
+		// mul *= 0.3f;
 		// ray = reflect_ray(ray, &hit, obj->light);
 	}
-	// if (!shadowing(&hit, obj, obj.light))
-	// 	return (0);
 	return (rgb_to_clr(clr));
 }
 

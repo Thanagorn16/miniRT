@@ -11,7 +11,6 @@ bool	setting_camera(t_param *par, t_cam cam)
 	par->cmr.post = cam.pos;
 	vp_width = tanf(ft_radius(cam.fov) / 2) * 2; // viewport ratio
 	vp_height = ((float)WD_HEIGHT / (float)WD_WIDTH) * vp_width; // viewport ratio
-	printf("w:%f h:%f\n", vp_width, vp_height);
 
 	// Change all axis to align with camera coordiate (direction)
 	axis_z = vec_norm(cam.dir);

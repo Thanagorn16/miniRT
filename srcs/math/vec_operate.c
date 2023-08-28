@@ -28,16 +28,16 @@ t_cor	vec_scalar(t_cor vec, float t)
 	return (vec);
 }
 
-float	vec_length(t_cor vec)
+float	vec_len(t_cor vec)
 {
-	return (sqrt(pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2)));
+	return (sqrt(ft_pow2(vec.x) + ft_pow2(vec.y) + ft_pow2(vec.z)));
 }
 
 t_cor	vec_norm(t_cor vec)
 {
 	float	length;
 
-	length = vec_length(vec);
+	length = vec_len(vec);
 	vec.x /= length;
 	vec.y /= length;
 	vec.z /= length;

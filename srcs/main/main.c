@@ -1,31 +1,35 @@
 #include "minirt.h"
 
-bool	setting_cylender(t_rt *rt)
+bool	setting_cylender(t_obj *obj)
 {
 	int	i;
 
 	i = 0;
-	while (i < rt->amt.cy)
+	while (i < obj->amt.cy)
 	{
-		rt->cy[i].dir = vec_norm(rt->cy[i].dir);
-		rt->cy[i].top = vec_add(rt->cy[i].pos,
-			vec_scalar(rt->cy[i].dir, (rt->cy[i].height / 2)));
-		rt->cy[i].bot = vec_sub(rt->cy[i].pos,
-			vec_scalar(rt->cy[i].dir, (rt->cy[i].height / 2)));
-		debug_cor(rt->cy[i].pos, "cy: ");
+		obj->cy[i].dir = vec_norm(obj->cy[i].dir);
+		obj->cy[i].top = vec_add(obj->cy[i].pos,
+			vec_scalar(obj->cy[i].dir, (obj->cy[i].height / 2)));
+		obj->cy[i].bot = vec_sub(obj->cy[i].pos,
+			vec_scalar(obj->cy[i].dir, (obj->cy[i].height / 2)));
+		// debug_cor(obj->cy[i].pos, "pos");
+		// debug_cor(obj->cy[i].dir, "dir");
+		// debug_cor(obj->cy[i].top, "top");
+		// debug_cor(obj->cy[i].bot, "bot");
+		// printf("height: %f , width: %f\n", obj->cy[i].height, obj->cy[i].dia);
 		i++;
 	}
 	return (true);
 }
 
-bool	setting_plane(t_rt *rt)
+bool	setting_plane(t_obj *obj)
 {
 	int	i;
 
 	i = 0;
-	while (i < rt->amt.pl)
+	while (i < obj->amt.pl)
 	{
-		rt->pl[i].dir = vec_norm(rt->pl[i].dir);
+		obj->pl[i].dir = vec_norm(obj->pl[i].dir);
 		i++;
 	}
 	return (true);
@@ -39,10 +43,21 @@ bool	init_object(t_rt *rt, t_obj *obj)
 	obj->amt = rt->amt;
 	obj->sp = rt->sp;
 	obj->pl = rt->pl;
-	setting_cylender(rt);
-	setting_plane(rt);
 	obj->cy = rt->cy;
+	setting_cylender(obj);
+	setting_plane(obj);
 	return (true);
+}
+
+void	testing_obj(t_obj obj)
+{
+	t_ray	ray;
+	ray.dir = (t_cor){0,0,-1};
+	ray.ori = (t_cor){0,0,10};
+
+	test_ray_point(ray, obj.cy, NULL, NULL, 0);
+	// test_ray_point(ray, NULL, obj.sp, NULL, 0);
+	exit(0);
 }
 
 int	main(int ac, char **av)
@@ -56,6 +71,7 @@ int	main(int ac, char **av)
 	init_object(&rt, &obj);
 	setting_camera(&par, rt.cam);
 
+	// testing_obj(obj);
 	// mlx init
 	init_window(&par);
 	create_image(&par);

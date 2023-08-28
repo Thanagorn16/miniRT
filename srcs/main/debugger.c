@@ -22,3 +22,25 @@ void	debug_rgb(t_rgb rgb, char *str)
 {
 	printf("%s -- x:%d, y:%d, z:%d\n", str, rgb.r, rgb.g, rgb.b);
 }
+
+void	ptr_cor(t_cor cor)
+{
+	printf("x:%f, y:%f, z:%f", cor.x, cor.y, cor.z);
+}
+
+void	test_ray_point(t_ray ray, t_cy* cy, t_sp* sp, t_pl* pl, int mode)
+{
+	t_hpl	hit;
+
+	hit.distance = FLT_MAX;
+	hit.hit = false;
+	if (cy)
+		hit_cylender(ray, &hit, *cy, mode);
+	else if (sp)
+		hit_sphere(ray, &hit, *sp, mode);
+	else if (pl)
+		hit_plane(ray, &hit, *pl, mode);
+	debug_cor(hit.point, "hitpoint-");
+	debug_cor(hit.dir, "hitdir-");
+	printf("distance: %f\n", hit.distance);
+}
