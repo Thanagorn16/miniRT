@@ -19,7 +19,7 @@ float	ft_min(float a, float b)
 	return (a);
 }
 
-float	ft_radius(int degree)
+float	ft_radian(int degree)
 {
 	return ((float)degree * (M_PI / 180));
 }

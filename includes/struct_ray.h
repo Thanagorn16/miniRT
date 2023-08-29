@@ -4,6 +4,21 @@
 # include <stdbool.h>
 # include "struct_parse.h"
 
+typedef enum e_cmr_move
+{
+	DOLLY,
+	TRUCK,
+	PEDESTAL,
+}	t_cmr_move;
+
+typedef enum e_cmr_rot
+{
+	e_rot_up,
+	e_rot_down,
+	e_rot_left,
+	e_rot_right,
+}	t_cmr_rot;
+
 // Image structure
 typedef struct s_image
 {
@@ -14,12 +29,24 @@ typedef struct s_image
 	int		endian;
 }	t_image;
 
+typedef struct s_axis
+{
+	t_cor	x; // vector that point to viewport
+	t_cor	y; // vector that point along with x axis of viewport
+	t_cor	z; // vector that point along with y axis of viewport
+}	t_axis;
+
 typedef struct s_cmr
 {
+	t_cor	move[3];
+	t_cor	rot[4];
+	t_axis	axis;
 	t_cor	post;
 	t_cor	fpro; //first projection
 	t_cor	hor;
 	t_cor	ver;
+	float	vp_width;
+	float	vp_height;
 }	t_cmr;
 
 typedef struct s_formula
@@ -69,8 +96,7 @@ typedef struct s_param
 	void	*mlx;
 	void	*win;
 	t_cmr	cmr;
-	float	h;
-	float	w;
+	t_obj	*obj;
 }	t_param;
 
 #endif

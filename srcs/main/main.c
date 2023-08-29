@@ -35,17 +35,18 @@ bool	setting_plane(t_obj *obj)
 	return (true);
 }
 
-bool	init_object(t_rt *rt, t_obj *obj)
+bool	init_object(t_param *par, t_rt rt)
 {
-	obj->light.clr = ratio_clr(rt->light.clr, rt->light.ratio);
-	obj->light.pos = rt->light.pos;
-	obj->ambient = ratio_clr(rt->amb.clr, rt->amb.ratio);
-	obj->amt = rt->amt;
-	obj->sp = rt->sp;
-	obj->pl = rt->pl;
-	obj->cy = rt->cy;
-	setting_cylender(obj);
-	setting_plane(obj);
+	par->obj = malloc(sizeof(t_obj));
+	par->obj->light.clr = ratio_clr(rt.light.clr, rt.light.ratio);
+	par->obj->light.pos = rt.light.pos;
+	par->obj->ambient = ratio_clr(rt.amb.clr, rt.amb.ratio);
+	par->obj->amt = rt.amt;
+	par->obj->sp = rt.sp;
+	par->obj->pl = rt.pl;
+	par->obj->cy = rt.cy;
+	setting_cylender(par->obj);
+	setting_plane(par->obj);
 	return (true);
 }
 
@@ -63,24 +64,20 @@ void	testing_obj(t_obj obj)
 int	main(int ac, char **av)
 {
 	t_param	par;
-	t_obj	obj;
 	t_rt	rt;
 
 	if (parsing(ac, av, &rt))
 		return (1);
-	init_object(&rt, &obj);
+	if (!init_object(&par, rt))
+		return (1);
 	setting_camera(&par, rt.cam);
 
-	// testing_obj(obj);
-	// mlx init
 	init_window(&par);
 	create_image(&par);
 
-	render_scene(par, &obj);
-	printf("Finish raytrace\n");
-
-	mlx_put_image_to_window(par.mlx, par.win, par.img.ptr, 0, 0);
+	mlx_loop_hook(par.mlx, &render_scene, &par);
 	mlx_hook(par.win, 2, 1L << 0, key_hook, &par);
 	mlx_hook(par.win, 17, 0, close_win, &par);
 	mlx_loop(par.mlx);
+	printf("Finish raytrace\n");
 }

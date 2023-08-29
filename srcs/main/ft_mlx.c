@@ -52,10 +52,3 @@ void	put_pixel_to_image(t_image *img, t_pix pix)
 		*dst = (unsigned int)pix.clr;
 	}
 }
-
-int	key_hook(int keycode, t_param *par)
-{
-	if (keycode == KEY_ESC)
-		close_win(par);
-	return (0);
-}

@@ -60,7 +60,7 @@ static int	ray_tracing(t_ray ray, t_obj *obj)
 	return (rgb_to_clr(clr));
 }
 
-bool	render_scene(t_param par, t_obj *obj)
+int	render_scene(t_param *par)
 {
 	t_pix		pix;
 	t_ray		ray; // vector ray that point to viewport map to pixel on screen
@@ -71,12 +71,13 @@ bool	render_scene(t_param par, t_obj *obj)
 		pix.x = 0;
 		while (pix.x < WD_WIDTH)
 		{
-			ray = gen_ray(par.cmr, pix.x, pix.y);
-			pix.clr = ray_tracing(ray, obj);	
-			put_pixel_to_image(&par.img, pix);
+			ray = gen_ray(par->cmr, pix.x, pix.y);
+			pix.clr = ray_tracing(ray, par->obj);
+			put_pixel_to_image(&par->img, pix);
 			pix.x++;
 		}
 		pix.y++;
 	}
+	mlx_put_image_to_window(par->mlx, par->win, par->img.ptr, 0, 0);
 	return (true);
 }

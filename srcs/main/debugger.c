@@ -44,3 +44,27 @@ void	test_ray_point(t_ray ray, t_cy* cy, t_sp* sp, t_pl* pl, int mode)
 	debug_cor(hit.dir, "hitdir-");
 	printf("distance: %f\n", hit.distance);
 }
+
+void	debug_diskey(int keycode)
+{
+	if (keycode == KEY_UP)
+		printf("## Press key up: ##\n");
+	else if (keycode == KEY_DOWN)
+		printf("## Press key down: ##\n");
+	else if (keycode == KEY_LEFT)
+		printf("## Press key turn left: ##\n");
+	else if (keycode == KEY_RIGHT)
+		printf("## Press key turn right: ##\n");
+	else if (keycode == KEY_W)
+		printf("## Press key forward: ##\n");
+	else if (keycode == KEY_S)
+		printf("## Press key backward: ##\n");
+	else if (keycode == KEY_A)
+		printf("## Press key move left: ##\n");
+	else if (keycode == KEY_D)
+		printf("## Press key move right: ##\n");
+	else if (keycode == KEY_Q)
+		printf("## Press key move up: ##\n");
+	else if (keycode == KEY_E)
+		printf("## Press key move down: ##\n");
+}

@@ -17,17 +17,22 @@
 #include "keycode_macos.h"
 #endif
 
-#define WD_WIDTH 1500
-#define WD_HEIGHT 1000
+#define WD_WIDTH 1280
+#define WD_HEIGHT 720
 #define EPSILON 0.001f
+#define ROT_DEGREE 3
+#define MOVE_UNIT 0.5
 #define BOUNCES 2
+
 bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy cy, int mode);
+void	debug_diskey(int keycode);
 
 bool	hit_object(t_ray ray, t_hpl *payload, t_obj *obj);
 t_ray	reflect_ray(t_ray ray, t_hpl *payload, t_light light);
 // t_ray	reflect_ray(t_ray ray, t_hpl *payload);
-bool	render_scene(t_param par, t_obj *obj);
-bool	init_object(t_rt *rt, t_obj *obj);
+int 	render_scene(t_param *par);
+// bool	render_scene(t_param par, t_obj *obj);
+// bool	init_object(t_rt *rt, t_obj *obj);
 // Camera
 bool	setting_camera(t_param *par, t_cam cam);
 // Object
@@ -58,7 +63,7 @@ void	test_ray_point(t_ray ray, t_cy *cy, t_sp *sp, t_pl *pl, int mode);
 // Algebra
 float	ft_pow2(float num);
 float	ft_abs(float num);
-float	ft_radius(int degree);
+float	ft_radian(int degree);
 float	ft_min(float a, float b);
 float	discriminant(float a, float b, float c);
 // Vector
