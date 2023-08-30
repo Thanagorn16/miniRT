@@ -30,6 +30,8 @@ bool disk_intersection(t_ray ray, t_hpl *hit, t_cy cy, int mode)
 	t_cor tmp_hitpoint; // use tmp before calculate vec length ,So in false case hit-point will don't change value
 	t_cor pos;
 
+	cy.top = vec_add(cy.pos, vec_scalar(cy.dir, (cy.height / 2)));
+	cy.bot = vec_sub(cy.pos, vec_scalar(cy.dir, (cy.height / 2)));
 	if (vec_len(vec_sub(ray.ori, cy.top)) < vec_len(vec_sub(ray.ori, cy.bot)))
 		pos = cy.top;
 	else

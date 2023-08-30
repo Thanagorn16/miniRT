@@ -8,10 +8,10 @@ bool	setting_cylender(t_obj *obj)
 	while (i < obj->amt.cy)
 	{
 		obj->cy[i].dir = vec_norm(obj->cy[i].dir);
-		obj->cy[i].top = vec_add(obj->cy[i].pos,
-			vec_scalar(obj->cy[i].dir, (obj->cy[i].height / 2)));
-		obj->cy[i].bot = vec_sub(obj->cy[i].pos,
-			vec_scalar(obj->cy[i].dir, (obj->cy[i].height / 2)));
+		// obj->cy[i].top = vec_add(obj->cy[i].pos,
+		// 	vec_scalar(obj->cy[i].dir, (obj->cy[i].height / 2)));
+		// obj->cy[i].bot = vec_sub(obj->cy[i].pos,
+		// 	vec_scalar(obj->cy[i].dir, (obj->cy[i].height / 2)));
 		// debug_cor(obj->cy[i].pos, "pos");
 		// debug_cor(obj->cy[i].dir, "dir");
 		// debug_cor(obj->cy[i].top, "top");
@@ -61,6 +61,35 @@ void	testing_obj(t_obj obj)
 	exit(0);
 }
 
+bool	display_object(t_amt amt, t_slt *slt)
+{
+	slt->index = 0;
+	slt->obj[0] = true;
+	slt->obj[1] = true;
+	slt->obj[2] = false;
+	slt->obj[3] = false;
+	slt->obj[4] = false;
+	printf("Finish Raytrace\n");
+	printf("Number[0] : Camera\nNumber[1] : Light\n");
+	if (amt.sp)
+	{
+		slt->obj[2] = true;
+		printf("Number[2] : Sphere\n");
+	}
+	if (amt.pl)
+	{
+		slt->obj[3] = true;
+		printf("Number[3] : Plane\n");
+	}
+	if (amt.cy)
+	{
+		slt->obj[4] = true;
+		printf("Number[4] : Cylender\n");
+	}
+	printf("Press number to selete Object\n");
+	return (true);
+}
+
 int	main(int ac, char **av)
 {
 	t_param	par;
@@ -78,6 +107,6 @@ int	main(int ac, char **av)
 	mlx_loop_hook(par.mlx, &render_scene, &par);
 	mlx_hook(par.win, 2, 1L << 0, key_hook, &par);
 	mlx_hook(par.win, 17, 0, close_win, &par);
+	display_object(par.obj->amt, &par.slt);
 	mlx_loop(par.mlx);
-	printf("Finish raytrace\n");
 }

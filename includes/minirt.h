@@ -21,9 +21,17 @@
 #define WD_HEIGHT 720
 #define EPSILON 0.001f
 #define ROT_DEGREE 3
-#define MOVE_UNIT 0.5
+#define MOVE_CMR_UNIT 0.5
+#define MOVE_OBJ_UNIT 0.2
+#define Y_AXIS (t_cor){0, 1.00, 0}
 #define BOUNCES 2
 
+t_cor	tilt_cmr(t_cor old, int degree);
+t_cor	plan_cmr(t_cor old, int degree);
+
+bool	selete_object(int keycode, t_slt *slt, t_obj *obj);
+bool	rotate_object(int keycode, t_slt *slt);
+bool	move_object(int keycode, t_slt *slt);
 bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy cy, int mode);
 void	debug_diskey(int keycode);
 
@@ -35,6 +43,8 @@ int 	render_scene(t_param *par);
 // bool	init_object(t_rt *rt, t_obj *obj);
 // Camera
 bool	setting_camera(t_param *par, t_cam cam);
+bool	move_camera(int keycode, t_cmr *cmr);
+bool	rotate_camera(int keycode, t_cmr *cmr);
 // Object
 bool	hit_sphere(t_ray ray, t_hpl *hit, t_sp sp, int mode);
 bool	hit_plane(t_ray ray, t_hpl *hit, t_pl pl, int mode);

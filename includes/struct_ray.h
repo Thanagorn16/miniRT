@@ -11,14 +11,6 @@ typedef enum e_cmr_move
 	PEDESTAL,
 }	t_cmr_move;
 
-typedef enum e_cmr_rot
-{
-	e_rot_up,
-	e_rot_down,
-	e_rot_left,
-	e_rot_right,
-}	t_cmr_rot;
-
 // Image structure
 typedef struct s_image
 {
@@ -31,15 +23,14 @@ typedef struct s_image
 
 typedef struct s_axis
 {
-	t_cor	x; // vector that point to viewport
-	t_cor	y; // vector that point along with x axis of viewport
-	t_cor	z; // vector that point along with y axis of viewport
+	t_cor	dir; // vector that point along with y axis of viewport
+	t_cor	hor; // vector that point to viewport
+	t_cor	ver; // vector that point along with x axis of viewport
 }	t_axis;
 
 typedef struct s_cmr
 {
 	t_cor	move[3];
-	t_cor	rot[4];
 	t_axis	axis;
 	t_cor	post;
 	t_cor	fpro; //first projection
@@ -85,18 +76,27 @@ typedef struct s_hitpayload
 	t_cor	ctr;
 	t_cor	point;
 	t_cor	dir;
-	float	distance;
 	t_rgb	clr;
+	float	distance;
 	bool	hit;
 }	t_hpl;
+
+typedef struct s_selete
+{
+	bool	obj[5];
+	int		index;
+	t_cor	*pos;
+	t_cor	*dir;
+}	t_slt;
 
 typedef struct s_param
 {
 	t_image	img;
 	void	*mlx;
 	void	*win;
-	t_cmr	cmr;
 	t_obj	*obj;
+	t_cmr	cmr;
+	t_slt	slt;
 }	t_param;
 
 #endif

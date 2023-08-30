@@ -52,3 +52,20 @@ void	put_pixel_to_image(t_image *img, t_pix pix)
 		*dst = (unsigned int)pix.clr;
 	}
 }
+
+int	key_hook(int keycode, t_param *par)
+{
+	if (keycode == KEY_ESC)
+		close_win(par);
+	else if (selete_object(keycode, &par->slt, par->obj))
+		return (0);
+	else if (par->slt.index == 0 && move_camera(keycode, &par->cmr))
+		return (0);
+	else if (par->slt.index == 0 && rotate_camera(keycode, &par->cmr))
+		return (0);
+	else if (par->slt.index && move_object(keycode, &par->slt))
+		return (0);
+	else if (par->slt.index && rotate_object(keycode, &par->slt))
+		return (0);
+	return (0);
+}
