@@ -131,6 +131,9 @@ void	free_2dstr(char **ptr);
 int		protect_rat_n(t_rt *rt, int mode);
 int		protect_rgb_n(t_rt *rt, int mode);
 int		protect_vec_n(t_rt *rt);
+int		protect_rat_s(t_rt *rt, int i, int mode);
+int		protect_rgb_s(t_rt *rt, int i, int mode);
+int		protect_vec_s(t_rt *rt, int i, int mode);
 // others
 int		parsing(int ac, char **av, t_rt *rt);
 float	ft_atof(const char *str);
