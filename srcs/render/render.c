@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 13:51:15 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/08/31 13:59:01 by tnantaki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 // Generate ray direction that shooting to all pixel
@@ -40,10 +52,11 @@ static int	ray_tracing(t_ray ray, t_obj *obj)
 	t_hpl	hit;
 	t_rgb	clr;
 	t_rgb	tmp;
-	float	mul = 1.0f;
+	float	mul;
 
-	clr = (t_rgb){0,0,0};
-	tmp = (t_rgb){0,0,0};
+	mul = 1.0f;
+	clr = (t_rgb){0, 0, 0};
+	tmp = (t_rgb){0, 0, 0};
 	hit_object(ray, &hit, obj);
 	if (hit.distance < 0)
 		return (rgb_to_clr(clr));
@@ -53,10 +66,11 @@ static int	ray_tracing(t_ray ray, t_obj *obj)
 	return (rgb_to_clr(clr));
 }
 
+// ray that point to viewport map to pixel on screen
 int	render_scene(t_param *par)
 {
 	t_pix		pix;
-	t_ray		ray; // vector ray that point to viewport map to pixel on screen
+	t_ray		ray;
 
 	pix.y = 0;
 	while (pix.y < WD_HEIGHT)

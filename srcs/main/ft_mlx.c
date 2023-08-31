@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_mlx.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 13:50:22 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/08/31 13:50:22 by tnantaki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 bool	init_window(t_param *par)
@@ -57,7 +69,7 @@ int	key_hook(int keycode, t_param *par)
 {
 	int	index;
 
-	index =  par->slt.index;
+	index = par->slt.index;
 	if (keycode == KEY_ESC)
 		close_win(par);
 	else if (selete_object(keycode, &par->slt, &par->obj))

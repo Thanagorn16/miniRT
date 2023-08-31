@@ -1,18 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   obj_set.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 13:50:52 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/08/31 14:20:52 by tnantaki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
-
-static t_axis	calculate_axis(t_cor dir)
-{
-	t_axis	axis;
-	t_cor	y_axis;
-
-	y_axis = (t_cor){0, 1.0f, 0};
-	axis.dir = dir;
-	if (dir.y == -1 || dir.y == 1)
-		y_axis = vec_norm((t_cor){0, 0, 1.0f * dir.y});
-	axis.hor = vec_norm(vec_cross(axis.dir, y_axis));
-	axis.ver = vec_norm(vec_cross(axis.hor, axis.dir));
-	return (axis);
-}
 
 static bool	setting_cylender(t_cy **cy, int amt)
 {

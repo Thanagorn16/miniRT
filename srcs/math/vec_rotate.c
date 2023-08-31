@@ -1,4 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vec_rotate.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 13:50:41 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/08/31 14:21:36 by tnantaki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
+
+ // y_axis : vector that point up along with y axis
+t_axis	calculate_axis(t_cor dir)
+{
+	t_axis	axis;
+	t_cor	y_axis;
+
+	y_axis = (t_cor){0, 1.0f, 0};
+	axis.dir = dir;
+	if (dir.y == -1 || dir.y == 1)
+		y_axis = vec_norm((t_cor){0, 0, 1.0f * dir.y});
+	axis.hor = vec_norm(vec_cross(axis.dir, y_axis));
+	axis.ver = vec_norm(vec_cross(axis.hor, axis.dir));
+	return (axis);
+}
 
 // Rotate round the x axis
 t_axis	tilt_dir(t_axis old, int degree)
@@ -39,7 +66,6 @@ t_axis	plan_catesian_dir(t_axis old, int degree)
 {
 	t_axis	new;
 	t_cor	cor;
-	t_cor	y_axis;
 	float	radian;
 	float	sine;
 	float	cosine;

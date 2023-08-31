@@ -1,18 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylender.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 13:50:44 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/08/31 14:08:40 by tnantaki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-static bool closest_cylender(t_ray ray, t_hpl *hit, t_cy cy, float t_closest)
-{
-	hit->distance = t_closest;
-	hit->point = vec_add(ray.oc, vec_scalar(ray.dir, hit->distance)); // closest point of sphere on matrix
-	hit->dir = vec_norm(hit->point);
-	hit->point = vec_add(hit->point, cy.pos); // move hit point back to the real position
-	hit->clr = cy.clr;
-	hit->ctr = cy.pos;
-	hit->hit = true;
-	return (true);
-}
-
-static bool closest_disk(t_hpl *hit, t_cy cy, float denom, float distance)
+static bool	closest_disk(t_hpl *hit, t_cy cy, float denom, float distance)
 {
 	hit->distance = distance;
 	hit->dir = cy.dir;
@@ -23,12 +23,12 @@ static bool closest_disk(t_hpl *hit, t_cy cy, float denom, float distance)
 	return (true);
 }
 
-bool disk_intersection(t_ray ray, t_hpl *hit, t_cy cy, int mode)
+bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy cy, int mode)
 {
-	float denom;
-	float distance;
-	t_cor tmp_hitpoint; // use tmp before calculate vec length ,So in false case hit-point will don't change value
-	t_cor pos;
+	float	denom;
+	float	distance;
+	t_cor	tmp_hitpoint; // use tmp before calculate vec length ,So in false case hit-point will don't change value
+	t_cor	pos;
 
 	cy.top = vec_add(cy.pos, vec_scalar(cy.dir, (cy.height / 2)));
 	cy.bot = vec_sub(cy.pos, vec_scalar(cy.dir, (cy.height / 2)));
@@ -42,13 +42,25 @@ bool disk_intersection(t_ray ray, t_hpl *hit, t_cy cy, int mode)
 	distance = vec_dot(vec_sub(pos, ray.ori), cy.dir) / denom;
 	if (distance < 0.00f || distance > hit->distance)
 		return (false);
-	tmp_hitpoint = vec_add(ray.ori, vec_scalar(ray.dir, distance)); // closest point
+	tmp_hitpoint = vec_add(ray.ori, vec_scalar(ray.dir, distance));
 	if (vec_len(vec_sub(tmp_hitpoint, pos)) > cy.radius)
 		return (false);
 	if (mode)
 		return (true);
 	hit->point = tmp_hitpoint;
 	return (closest_disk(hit, cy, denom, distance));
+}
+
+static bool	closest_cylender(t_ray ray, t_hpl *hit, t_cy cy, float t_closest)
+{
+	hit->distance = t_closest;
+	hit->point = vec_add(ray.oc, vec_scalar(ray.dir, hit->distance));
+	hit->dir = vec_norm(hit->point);
+	hit->point = vec_add(hit->point, cy.pos);
+	hit->clr = cy.clr;
+	hit->ctr = cy.pos;
+	hit->hit = true;
+	return (true);
 }
 
 // O is ray origin
@@ -62,7 +74,7 @@ bool disk_intersection(t_ray ray, t_hpl *hit, t_cy cy, int mode)
 // c = X|X - (X|V)^2 - r*r
 // t = hit distance
 // m = D|V*t + X|V
-bool hit_cylender(t_ray ray, t_hpl *hit, t_cy cy, int mode)
+bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy cy, int mode)
 {
 	t_fml	fml;
 	float	disc;
@@ -73,7 +85,7 @@ bool hit_cylender(t_ray ray, t_hpl *hit, t_cy cy, int mode)
 	fml.b = 2 * (vec_dot(ray.dir, ray.oc) - vec_dot(ray.dir, cy.dir)
 			* vec_dot(ray.oc, cy.dir));
 	fml.c = vec_dot(ray.oc, ray.oc) - ft_pow2(vec_dot(ray.oc, cy.dir))
-			- ft_pow2(cy.radius);
+		- ft_pow2(cy.radius);
 	disc = discriminant(fml.a, fml.b, fml.c);
 	if (disc < 0.0f)
 		return (false);

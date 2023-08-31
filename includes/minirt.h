@@ -6,7 +6,7 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 00:49:50 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/08/31 10:46:20 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:22:20 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ float	vec_len(t_cor vec);
 t_cor	vec_norm(t_cor vec);
 float	vec_dot(t_cor a, t_cor b);
 t_cor	vec_cross(t_cor a, t_cor b);
+t_axis	calculate_axis(t_cor dir);
 t_axis	tilt_dir(t_axis old, int degree);
 t_axis	plan_dir(t_axis old, int degree);
 t_axis	plan_catesian_dir(t_axis old, int degree);
