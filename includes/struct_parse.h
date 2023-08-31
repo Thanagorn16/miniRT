@@ -24,6 +24,13 @@ typedef struct s_cor
 	float	z;
 } t_cor;
 
+typedef struct s_axis
+{
+	t_cor	dir; // vector that point to viewport
+	t_cor	hor; // vector that point along with x axis of viewport
+	t_cor	ver; // vector that point along with y axis of viewport
+}	t_axis;
+
 typedef struct s_rgb
 {
 	int	r;
@@ -53,6 +60,7 @@ typedef struct s_light
 
 typedef struct s_pl
 {
+	t_axis	axis;
 	t_cor	pos;
 	t_cor	dir;
 	t_rgb	clr;
@@ -69,6 +77,7 @@ typedef struct s_sp
 // m = is a scalar that determines the closest point on the axis to the hit point.
 typedef struct s_cy
 {
+	t_axis	axis;
 	t_cor	pos;
 	t_cor	dir;
 	t_cor	top;

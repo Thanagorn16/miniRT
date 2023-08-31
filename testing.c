@@ -42,3 +42,24 @@ int	convert2rgb(t_cor vec)
 	clr = (r << 16) | (g << 8) | b;
 	return (clr);
 }
+
+t_axis	test_rotate(t_axis old, int degree)
+{
+	t_axis	new;
+	float	radian;
+	float	sine;
+	float	cosine;
+
+	radian = ft_radian(degree);
+	sine = sinf(radian);
+	cosine = cosf(radian);
+	new.hor = old.hor;
+	// new.y = old.y * cosine - old.z * sine;
+	new.ver = vec_sub(vec_scalar(old.ver, cosine), vec_scalar(old.dir, sine));
+	// new.z = old.y * sine + old.z * cosine;
+	new.dir = vec_add(vec_scalar(old.ver, sine), vec_scalar(old.dir, cosine));
+	debug_cor(new.dir, "axis.dir: ");
+	debug_cor(new.hor, "axis.hor: ");
+	debug_cor(new.ver, "axis.ver: ");
+	return (new);
+}

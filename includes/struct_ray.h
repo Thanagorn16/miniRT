@@ -21,13 +21,6 @@ typedef struct s_image
 	int		endian;
 }	t_image;
 
-typedef struct s_axis
-{
-	t_cor	dir; // vector that point along with y axis of viewport
-	t_cor	hor; // vector that point to viewport
-	t_cor	ver; // vector that point along with x axis of viewport
-}	t_axis;
-
 typedef struct s_cmr
 {
 	t_cor	move[3];
@@ -87,6 +80,7 @@ typedef struct s_selete
 	int		index;
 	t_cor	*pos;
 	t_cor	*dir;
+	t_axis	*axis;
 }	t_slt;
 
 typedef struct s_param
@@ -94,7 +88,7 @@ typedef struct s_param
 	t_image	img;
 	void	*mlx;
 	void	*win;
-	t_obj	*obj;
+	t_obj	obj;
 	t_cmr	cmr;
 	t_slt	slt;
 }	t_param;

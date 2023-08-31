@@ -1,54 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 00:49:50 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/08/31 10:46:20 by tnantaki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_H
-#define MINIRT_H
+# define MINIRT_H
 
-#include "mlx.h"
-#include "color.h"
-#include "struct_ray.h"
+# include "mlx.h"
+# include "color.h"
+# include "struct_ray.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <math.h>
-#include <float.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <math.h>
 
-#if defined(__linux__)
-#include "keycode_linux.h"
-#else
-#include "keycode_macos.h"
-#endif
+# if defined(__linux__)
+#  include "keycode_linux.h"
+# else
+#  include "keycode_macos.h"
+# endif
 
-#define WD_WIDTH 1280
-#define WD_HEIGHT 720
-#define EPSILON 0.001f
-#define ROT_DEGREE 3
-#define MOVE_CMR_UNIT 0.5
-#define MOVE_OBJ_UNIT 0.2
-#define Y_AXIS (t_cor){0, 1.00, 0}
-#define BOUNCES 2
+# define WD_WIDTH 1280
+# define WD_HEIGHT 720
 
-t_cor	tilt_cmr(t_cor old, int degree);
-t_cor	plan_cmr(t_cor old, int degree);
+# define FLT_MAX 3.4028234664e+38
+# define EPSILON 0.001f
 
-bool	selete_object(int keycode, t_slt *slt, t_obj *obj);
-bool	rotate_object(int keycode, t_slt *slt);
-bool	move_object(int keycode, t_slt *slt);
-bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy cy, int mode);
-void	debug_diskey(int keycode);
+# define ROT_DEGREE 5
+# define MOVE_CMR_UNIT 0.5
+# define MOVE_OBJ_UNIT 0.2
+# define BOUNCES 2
 
+// Raytrace
 bool	hit_object(t_ray ray, t_hpl *payload, t_obj *obj);
 t_ray	reflect_ray(t_ray ray, t_hpl *payload, t_light light);
-// t_ray	reflect_ray(t_ray ray, t_hpl *payload);
-int 	render_scene(t_param *par);
-// bool	render_scene(t_param par, t_obj *obj);
-// bool	init_object(t_rt *rt, t_obj *obj);
+int		render_scene(t_param *par);
 // Camera
 bool	setting_camera(t_param *par, t_cam cam);
 bool	move_camera(int keycode, t_cmr *cmr);
 bool	rotate_camera(int keycode, t_cmr *cmr);
 // Object
+bool	display_object(t_amt amt, t_slt *slt);
+bool	setting_object(t_param *par, t_rt rt);
+bool	selete_object(int keycode, t_slt *slt, t_obj *obj);
+bool	move_object(int keycode, t_slt *slt);
+bool	rotate_object(int keycode, t_slt *slt);
 bool	hit_sphere(t_ray ray, t_hpl *hit, t_sp sp, int mode);
 bool	hit_plane(t_ray ray, t_hpl *hit, t_pl pl, int mode);
 bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy cy, int mode);
+bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy cy, int mode);
 // Light
 t_rgb	ambient_light(t_rgb clr, t_rgb objclr, t_rgb amb);
 t_rgb	shadowing(t_rgb	clr, t_hpl hit, t_obj *obj);
@@ -70,6 +78,7 @@ void	sphere_post(t_sp sp);
 void	debug_cor(t_cor cor, char *str);
 void	debug_rgb(t_rgb rgb, char *str);
 void	test_ray_point(t_ray ray, t_cy *cy, t_sp *sp, t_pl *pl, int mode);
+void	debug_diskey(int keycode);
 // Algebra
 float	ft_pow2(float num);
 float	ft_abs(float num);
@@ -84,5 +93,8 @@ float	vec_len(t_cor vec);
 t_cor	vec_norm(t_cor vec);
 float	vec_dot(t_cor a, t_cor b);
 t_cor	vec_cross(t_cor a, t_cor b);
+t_axis	tilt_dir(t_axis old, int degree);
+t_axis	plan_dir(t_axis old, int degree);
+t_axis	plan_catesian_dir(t_axis old, int degree);
 
 #endif

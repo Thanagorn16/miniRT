@@ -38,25 +38,18 @@ bool	hit_object(t_ray ray, t_hpl *hit, t_obj *obj)
 static int	ray_tracing(t_ray ray, t_obj *obj)
 {
 	t_hpl	hit;
-	t_rgb	clr = {0,0,0};
-	t_rgb	tmp = {0,0,0};
+	t_rgb	clr;
+	t_rgb	tmp;
 	float	mul = 1.0f;
-	t_rgb	sky_clr = {0,0,0};
 
-	for (int i = 0; i < 1; i++)
-	{
-		hit_object(ray, &hit, obj);
-		if (hit.distance < 0)
-		{
-			clr = add_clr(clr, sky_clr);
-			break ;
-		}
-		tmp = ambient_light(clr, hit.clr, obj->ambient);
-		tmp = shadowing(tmp, hit, obj);
-		clr = add_clr(clr, ratio_clr(tmp, mul));
-		// mul *= 0.3f;
-		// ray = reflect_ray(ray, &hit, obj->light);
-	}
+	clr = (t_rgb){0,0,0};
+	tmp = (t_rgb){0,0,0};
+	hit_object(ray, &hit, obj);
+	if (hit.distance < 0)
+		return (rgb_to_clr(clr));
+	tmp = ambient_light(clr, hit.clr, obj->ambient);
+	tmp = shadowing(tmp, hit, obj);
+	clr = add_clr(clr, ratio_clr(tmp, mul));
 	return (rgb_to_clr(clr));
 }
 
@@ -72,7 +65,7 @@ int	render_scene(t_param *par)
 		while (pix.x < WD_WIDTH)
 		{
 			ray = gen_ray(par->cmr, pix.x, pix.y);
-			pix.clr = ray_tracing(ray, par->obj);
+			pix.clr = ray_tracing(ray, &par->obj);
 			put_pixel_to_image(&par->img, pix);
 			pix.x++;
 		}
