@@ -15,14 +15,11 @@ int	set_elem(char **av, t_rt *rt)
 		if (!set)
 			return (EXIT_FAILURE);
 		if (ft_strcmp(set[0], "A") == 0)
-			if (set_amb(set, rt))
-				exit(EXIT_FAILURE);
+			set_amb(set, rt);
 		if (ft_strcmp(set[0], "C") == 0)
-			if (set_cam(set, rt))
-				exit(EXIT_FAILURE);
+			set_cam(set, rt);
 		if (ft_strcmp(set[0], "L") == 0)
-			if (set_light(set, rt))
-				exit(EXIT_FAILURE);
+			set_light(set, rt);
 		if (ft_strcmp(set[0], "sp") == 0)
 			if (set_sp(set, rt))
 				exit(EXIT_FAILURE);
