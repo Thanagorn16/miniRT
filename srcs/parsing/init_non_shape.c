@@ -11,11 +11,11 @@ int	set_amb(char **set, t_rt *rt)
 		return (printf("A: " FAILURE_RATIO), 1);
 	rt->amb.clr = set_clr(set);
 	if (rt->amb.clr.r < 0 || rt->amb.clr.r > 255)
-		return (printf("A: " FAILURE_RATIO), 1);
+		return (printf("A: " FAILURE_RGB), 1);
 	if (rt->amb.clr.g < 0 || rt->amb.clr.g > 255)
-		return (printf("A: " FAILURE_RATIO), 1);
+		return (printf("A: " FAILURE_RGB), 1);
 	if (rt->amb.clr.b < 0 || rt->amb.clr.b > 255)
-		return (printf("A: " FAILURE_RATIO), 1);
+		return (printf("A: " FAILURE_RGB), 1);
 	i++;
 	return (EXIT_SUCCESS);
 }

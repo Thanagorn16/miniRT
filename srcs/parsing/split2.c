@@ -9,7 +9,7 @@ static int	ft_countword(char const *s, char c1, char c2)
 	cw = 0;
 	while (s[i])
 	{
-		while (s[i] && (s[i] == c1 || s[i] == c2)) // not the target
+		while (s[i] && (s[i] == c1 || s[i] == c2))
 			i++;
 		while (s[i] && (s[i] != c1 || s[i] == c2))
 		{
@@ -18,7 +18,6 @@ static int	ft_countword(char const *s, char c1, char c2)
 				cw++;
 		}
 	}
-	// printf("%d\n", cw);
 	return (cw);
 }
 

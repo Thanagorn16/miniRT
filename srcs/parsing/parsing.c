@@ -24,11 +24,14 @@ int	set_elem(char **av, t_rt *rt)
 			if (set_light(set, rt))
 				exit(EXIT_FAILURE);
 		if (ft_strcmp(set[0], "sp") == 0)
-			set_sp(set, rt);
+			if (set_sp(set, rt))
+				exit(EXIT_FAILURE);
 		if (ft_strcmp(set[0], "pl") == 0)
-			set_pl(set, rt);
+			if (set_pl(set, rt))
+				exit(EXIT_FAILURE);
 		if (ft_strcmp(set[0], "cy") == 0)
-			set_cy(set, rt);
+			if (set_cy(set, rt))
+				exit(EXIT_FAILURE);
 		free(tmp);
 	}
 	return (EXIT_SUCCESS);
@@ -56,7 +59,7 @@ int parsing(int ac, char **av, t_rt *rt)
 		return (EXIT_FAILURE);
 
 	// check data (remove the comment below to use the function)
-	// display(rt);
-	// exit(0);
+	display(rt);
+	exit(0);
 	return (EXIT_SUCCESS);
 }
