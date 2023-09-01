@@ -2,7 +2,6 @@
 NAME	= minirt
 
 ### Directory ###
-# DIR_LIBFT	= libft
 LIBFT_PATH	= libft/
 GNL_PATH	= get_next_line/
 

@@ -6,7 +6,7 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:50:59 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/08/31 13:51:00 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/09/01 10:28:31 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ bool	hit_sphere(t_ray ray, t_hpl *hit, t_sp sp, int mode)
 	if (disc < 0.0f)
 		return (false);
 	t_closest = (-fml.b - sqrt(disc)) / (2 * fml.a); // closest distance from camera to sphere
+	if (t_closest < 0) // incase of position of camera are inside the sphere
+		t_closest = (-fml.b + sqrt(disc)) / (2 * fml.a);
 	if (t_closest < 0.00f || t_closest > hit->distance)
 		return (false);
 	if (mode) // To only calculate that hit any object.

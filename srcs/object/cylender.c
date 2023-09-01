@@ -6,7 +6,7 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:50:44 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/08/31 14:08:40 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/09/01 10:29:47 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy cy, int mode)
 	if (disc < 0.0f)
 		return (false);
 	t_closest = (-fml.b - sqrt(disc)) / (2 * fml.a); // closest distance from camera to sphere
+	if (t_closest < 0)
+		t_closest = (-fml.b + sqrt(disc)) / (2 * fml.a);
 	if (t_closest < 0.00f || t_closest > hit->distance)
 		return (false);
 	cy.m = vec_dot(ray.dir, cy.dir) * t_closest + vec_dot(ray.oc, cy.dir);
