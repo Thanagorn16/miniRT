@@ -15,6 +15,7 @@
 #define FAILURE_RATIO "Ratio must not be less than 0.0 and must not be more than 1.0\n"
 #define FAILURE_RGB "RGB must not be less than 0 and must not be more than 255\n"
 #define FAILURE_VEC "Vector must not be less than -1.0 and must not be more than 1.0\n"
+#define FAILURE_VEC_0 "Vector (x, y, z) must not all be pointed 0 at the beginning\n"
 #define FAILURE_FOV "FOV must not be less than 0 and must not be more than 180\n"
 
 typedef struct s_cor
