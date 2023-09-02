@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/02 11:42:17 by truangsi          #+#    #+#             */
+/*   Updated: 2023/09/02 13:46:20 by truangsi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int	set_elem(char **av, t_rt *rt)
@@ -13,16 +25,13 @@ int	set_elem(char **av, t_rt *rt)
 			break ;
 		set = split2(tmp, ' ', ',');
 		if (!set)
-			return (EXIT_FAILURE);
+			return (free_data(rt), exit(EXIT_FAILURE), 1);
 		if (ft_strcmp(set[0], "A") == 0)
-			if (set_amb(set, rt))
-				exit(EXIT_FAILURE);
+			set_amb(set, rt);
 		if (ft_strcmp(set[0], "C") == 0)
-			if (set_cam(set, rt))
-				exit(EXIT_FAILURE);
+			set_cam(set, rt);
 		if (ft_strcmp(set[0], "L") == 0)
-			if (set_light(set, rt))
-				exit(EXIT_FAILURE);
+			set_light(set, rt);
 		if (ft_strcmp(set[0], "sp") == 0)
 			set_sp(set, rt);
 		if (ft_strcmp(set[0], "pl") == 0)
@@ -31,6 +40,7 @@ int	set_elem(char **av, t_rt *rt)
 			set_cy(set, rt);
 		free(tmp);
 	}
+	close(rt->fd);
 	return (EXIT_SUCCESS);
 }
 
@@ -40,13 +50,17 @@ int parsing(int ac, char **av, t_rt *rt)
 	int		len;
 
 	if (ac != 2)
-		return (EXIT_FAILURE);
+	return (EXIT_FAILURE);
 
 	//check input file
 	name = ft_split(av[1], '.');
+	if (!name)
+		exit(EXIT_FAILURE);
 	len = ft_2dstrlen(name) - 1;
+	if (len != 1)
+		return (free_2dstr(name), exit(EXIT_FAILURE), 1);
 	if (ft_strcmp(name[len], "rt") != 0)
-		return (EXIT_FAILURE);
+		return (free_2dstr(name), exit(EXIT_FAILURE), 1);
 	free_2dstr(name);
 
 	// process data

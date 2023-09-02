@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_rt.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/02 12:52:10 by truangsi          #+#    #+#             */
+/*   Updated: 2023/09/02 12:52:11 by truangsi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 t_cor set_cor(char *set1, char *set2, char *set3)
@@ -54,24 +66,16 @@ void	count_shape(char **av, t_rt *rt)
 // allocate all the shapes in the data
 void	alloc_shape(t_rt *rt)
 {
-	int	i;
-
-	i = 0;
-	while (i < rt->amt.pl)
-	{
+	if (rt->amt.pl)
 		rt->pl = malloc(sizeof(t_rt) * rt->amt.pl);
-		i++;
-	}
-	i = 0;
-	while (i < rt->amt.sp)
-	{
+	else
+		rt->pl = NULL;
+	if (rt->amt.sp)
 		rt->sp = malloc(sizeof(t_rt) * rt->amt.sp);
-		i++;
-	}
-	i = 0;
-	while (i < rt->amt.cy)
-	{
+	else
+		rt->sp = NULL;
+	if (rt->amt.cy)
 		rt->cy = malloc(sizeof(t_rt) * rt->amt.cy);
-		i++;
-	}
+	else
+		rt->cy = NULL;
 }
