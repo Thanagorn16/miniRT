@@ -140,4 +140,6 @@ int		parsing(int ac, char **av, t_rt *rt);
 float	ft_atof(const char *str);
 char	**split2(char const *s, char c1, char c2);
 void	display(t_rt *rt);
+void	free_data(t_rt *rt);
+void	free_exit(t_rt *rt, char *identifier, char *err);
 #endif

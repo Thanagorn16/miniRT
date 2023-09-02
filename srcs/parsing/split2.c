@@ -6,16 +6,16 @@
 /*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:20:30 by truangsi          #+#    #+#             */
-/*   Updated: 2023/08/31 14:20:41 by truangsi         ###   ########.fr       */
+/*   Updated: 2023/09/02 11:45:45 by truangsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct_parse.h"
+#include "minirt.h"
 
-static int	ft_countword(char const *s, char c1, char c2)
+static int ft_countword(char const *s, char c1, char c2)
 {
-	int	i;
-	int	cw;
+	int i;
+	int cw;
 
 	i = 0;
 	cw = 0;
@@ -33,11 +33,11 @@ static int	ft_countword(char const *s, char c1, char c2)
 	return (cw);
 }
 
-static char	*ft_malloc_word(const char *str, char c1, char c2, int *start)
+static char *ft_malloc_word(const char *str, char c1, char c2, int *start)
 {
-	char	*word;
-	int		i;
-	int		len;
+	char *word;
+	int i;
+	int len;
 
 	len = 0;
 	i = 0;
@@ -58,7 +58,7 @@ static char	*ft_malloc_word(const char *str, char c1, char c2, int *start)
 	return (word);
 }
 
-static char	**ft_freeword(char **split, int i)
+static char **ft_freeword(char **split, int i)
 {
 	while (i >= 0)
 	{
@@ -69,12 +69,12 @@ static char	**ft_freeword(char **split, int i)
 	return (NULL);
 }
 
-char	**split2(char const *s, char c1, char c2)
+char **split2(char const *s, char c1, char c2)
 {
-	char	**split;
-	int		cw;
-	int		i;
-	int		start;
+	char **split;
+	int cw;
+	int i;
+	int start;
 
 	i = 0;
 	start = 0;
