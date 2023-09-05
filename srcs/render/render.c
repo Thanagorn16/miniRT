@@ -32,15 +32,15 @@ bool	hit_object(t_ray ray, t_hpl *hit, t_obj *obj)
 	hit->hit = false;
 	i = 0;
 	while (i < obj->amt.sp)
-		hit_sphere(ray, hit, obj->sp[i++], 0);
+		hit_sphere(ray, hit, &obj->sp[i++], 0);
 	i = 0;
 	while (i < obj->amt.pl)
-		hit_plane(ray, hit, obj->pl[i++], 0);
+		hit_plane(ray, hit, &obj->pl[i++], 0);
 	i = 0;
 	while (i < obj->amt.cy)
 	{
-		hit_cylender(ray, hit, obj->cy[i], 0);
-		disk_intersection(ray, hit, obj->cy[i++], 0);
+		hit_cylender(ray, hit, &obj->cy[i], 0);
+		disk_intersection(ray, hit, &obj->cy[i++], 0);
 	}
 	if (!hit->hit)
 		return (hit->distance = -1.00f, false);
@@ -69,8 +69,8 @@ static int	ray_tracing(t_ray ray, t_obj *obj)
 // ray that point to viewport map to pixel on screen
 int	render_scene(t_param *par)
 {
-	t_pix		pix;
-	t_ray		ray;
+	t_pix	pix;
+	t_ray	ray;
 
 	pix.y = 0;
 	while (pix.y < WD_HEIGHT)
@@ -86,5 +86,8 @@ int	render_scene(t_param *par)
 		pix.y++;
 	}
 	mlx_put_image_to_window(par->mlx, par->win, par->img.ptr, 0, 0);
+	par->current = get_elapse_time();
+	printf("Frame rate : %ld ms\n", (par->current - par->start)/ 1000);
+	par->start = par->current;
 	return (true);
 }

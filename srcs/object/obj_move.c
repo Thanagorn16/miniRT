@@ -74,7 +74,7 @@ static bool	match(t_slt *slt, t_cor *pos, t_cor *dir, t_axis *axis)
 bool	selete_object(int keycode, t_slt *slt, t_obj *obj)
 {
 	if (keycode == KEY_ZERO)
-		return (slt->index = 0, printf("Camera has seleted\n", true));
+		return (slt->index = 0, printf("Camera has seleted\n"), true);
 	else if (keycode == KEY_ONE && slt->obj[1])
 	{
 		slt->index = 1;

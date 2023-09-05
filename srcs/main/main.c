@@ -17,6 +17,7 @@ int	main(int ac, char **av)
 	t_param	par;
 	t_rt	rt;
 
+	par.start = get_elapse_time();
 	if (parsing(ac, av, &rt))
 		return (1);
 	setting_camera(&par, rt.cam);

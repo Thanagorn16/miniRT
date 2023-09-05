@@ -15,8 +15,8 @@
  // y_axis : vector that point up along with y axis
 t_axis	calculate_axis(t_cor dir)
 {
-	t_axis	axis;
-	t_cor	y_axis;
+	register t_axis	axis;
+	register t_cor	y_axis;
 
 	y_axis = (t_cor){0, 1.0f, 0};
 	axis.dir = dir;
@@ -30,10 +30,10 @@ t_axis	calculate_axis(t_cor dir)
 // Rotate round the x axis
 t_axis	tilt_dir(t_axis old, int degree)
 {
-	t_axis	new;
-	float	radian;
-	float	sine;
-	float	cosine;
+	register t_axis	new;
+	register float	radian;
+	register float	sine;
+	register float	cosine;
 
 	radian = ft_radian(degree);
 	sine = sinf(radian);
@@ -47,10 +47,10 @@ t_axis	tilt_dir(t_axis old, int degree)
 // Rotate round the y axis
 t_axis	plan_dir(t_axis old, int degree)
 {
-	t_axis	new;
-	float	radian;
-	float	sine;
-	float	cosine;
+	register t_axis	new;
+	register float	radian;
+	register float	sine;
+	register float	cosine;
 
 	radian = ft_radian(degree);
 	sine = sinf(radian);
@@ -64,11 +64,11 @@ t_axis	plan_dir(t_axis old, int degree)
 // Only Rotate round the y system coordinate axis
 t_axis	plan_catesian_dir(t_axis old, int degree)
 {
-	t_axis	new;
-	t_cor	cor;
-	float	radian;
-	float	sine;
-	float	cosine;
+	register t_axis	new;
+	register t_cor	cor;
+	register float	radian;
+	register float	sine;
+	register float	cosine;
 
 	radian = ft_radian(degree);
 	sine = sinf(radian);

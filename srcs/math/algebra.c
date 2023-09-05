@@ -38,7 +38,7 @@ float	ft_radian(int degree)
 
 float	discriminant(float a, float b, float c)
 {
-	float	num;
+	register float	num;
 
 	num = ft_pow2(b) - 4 * a * c;
 	if (num < 0)

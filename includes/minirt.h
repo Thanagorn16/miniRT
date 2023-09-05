@@ -22,6 +22,8 @@
 # include <unistd.h>
 # include <math.h>
 
+# include <sys/time.h>
+
 # if defined(__linux__)
 #  include "keycode_linux.h"
 # else
@@ -53,10 +55,10 @@ bool	setting_object(t_param *par, t_rt rt);
 bool	selete_object(int keycode, t_slt *slt, t_obj *obj);
 bool	move_object(int keycode, t_slt *slt);
 bool	rotate_object(int keycode, t_slt *slt);
-bool	hit_sphere(t_ray ray, t_hpl *hit, t_sp sp, int mode);
-bool	hit_plane(t_ray ray, t_hpl *hit, t_pl pl, int mode);
-bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy cy, int mode);
-bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy cy, int mode);
+bool	hit_sphere(t_ray ray, t_hpl *hit, t_sp *sp, int mode);
+bool	hit_plane(t_ray ray, t_hpl *hit, t_pl *pl, int mode);
+bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy *cy, int mode);
+bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy *cy, int mode);
 // Light
 t_rgb	ambient_light(t_rgb clr, t_rgb objclr, t_rgb amb);
 t_rgb	shadowing(t_rgb	clr, t_hpl hit, t_obj *obj);
@@ -79,6 +81,7 @@ void	debug_cor(t_cor cor, char *str);
 void	debug_rgb(t_rgb rgb, char *str);
 void	test_ray_point(t_ray ray, t_cy *cy, t_sp *sp, t_pl *pl, int mode);
 void	debug_diskey(int keycode);
+long int	get_elapse_time(void);
 // Algebra
 float	ft_pow2(float num);
 float	ft_abs(float num);

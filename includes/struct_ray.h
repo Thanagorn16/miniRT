@@ -103,6 +103,8 @@ typedef struct s_param
 	t_obj	obj;
 	t_cmr	cmr;
 	t_slt	slt;
+	long int	start;
+	long int	current;
 }	t_param;
 
 #endif
