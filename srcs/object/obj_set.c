@@ -12,7 +12,23 @@
 
 #include "minirt.h"
 
-static bool	setting_cylender(t_cy **cy, int amt)
+bool	cy_position(t_cy **cy, int amt)
+{
+	t_cor	half_pos;
+	int		i;
+
+	half_pos = vec_scalar((*cy)[i].dir, ((*cy)[i].height / 2));
+	i = 0;
+	while (i < amt)
+	{
+		(*cy)[i].top = vec_add((*cy)[i].pos, half_pos);
+		(*cy)[i].bot = vec_sub((*cy)[i].pos, half_pos);
+		i++;
+	}
+	return (true);
+}
+
+static bool	setting_cylinder(t_cy **cy, int amt)
 {
 	int		i;
 	t_cor	y_axis;
@@ -53,7 +69,7 @@ bool	setting_object(t_param *par, t_rt rt)
 	obj.sp = rt.sp;
 	obj.pl = rt.pl;
 	obj.cy = rt.cy;
-	setting_cylender(&obj.cy, obj.amt.cy);
+	setting_cylinder(&obj.cy, obj.amt.cy);
 	setting_plane(&obj.pl, obj.amt.pl);
 	par->obj = obj;
 	return (true);

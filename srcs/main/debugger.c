@@ -47,7 +47,7 @@ void	test_ray_point(t_ray ray, t_cy* cy, t_sp* sp, t_pl* pl, int mode)
 	hit.distance = FLT_MAX;
 	hit.hit = false;
 	if (cy)
-		hit_cylender(ray, &hit, cy, mode);
+		hit_cylinder(ray, &hit, cy, mode);
 	else if (sp)
 		hit_sphere(ray, &hit, sp, mode);
 	else if (pl)

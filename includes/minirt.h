@@ -57,7 +57,8 @@ bool	move_object(int keycode, t_slt *slt);
 bool	rotate_object(int keycode, t_slt *slt);
 bool	hit_sphere(t_ray ray, t_hpl *hit, t_sp *sp, int mode);
 bool	hit_plane(t_ray ray, t_hpl *hit, t_pl *pl, int mode);
-bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy *cy, int mode);
+bool	cy_position(t_cy **cy, int amt);
+bool	hit_cylinder(t_ray ray, t_hpl *hit, t_cy *cy, int mode);
 bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy *cy, int mode);
 // Light
 t_rgb	ambient_light(t_rgb clr, t_rgb objclr, t_rgb amb);

@@ -88,11 +88,11 @@ typedef struct s_hitpayload
 
 typedef struct s_selete
 {
-	bool	obj[5];
-	int		index;
+	t_axis	*axis;
 	t_cor	*pos;
 	t_cor	*dir;
-	t_axis	*axis;
+	bool	obj[5];
+	int		index;
 }	t_slt;
 
 typedef struct s_param

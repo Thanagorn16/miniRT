@@ -42,7 +42,7 @@ bool	block_object(t_ray ray, t_obj *obj, float distance)
 	i = 0;
 	while (i < obj->amt.cy)
 	{
-		if (hit_cylender(ray, &hit, &obj->cy[i], 1)
+		if (hit_cylinder(ray, &hit, &obj->cy[i], 1)
 			|| disk_intersection(ray, &hit, &obj->cy[i++], 1))
 			return (true);
 	}

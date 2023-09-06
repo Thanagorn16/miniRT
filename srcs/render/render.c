@@ -39,7 +39,7 @@ bool	hit_object(t_ray ray, t_hpl *hit, t_obj *obj)
 	i = 0;
 	while (i < obj->amt.cy)
 	{
-		hit_cylender(ray, hit, &obj->cy[i], 0);
+		hit_cylinder(ray, hit, &obj->cy[i], 0);
 		disk_intersection(ray, hit, &obj->cy[i++], 0);
 	}
 	if (!hit->hit)
@@ -73,6 +73,8 @@ int	render_scene(t_param *par)
 	t_ray	ray;
 
 	pix.y = 0;
+	if (par->obj.amt.cy)
+		cy_position(&par->obj.cy, par->obj.amt.cy);
 	while (pix.y < WD_HEIGHT)
 	{
 		pix.x = 0;

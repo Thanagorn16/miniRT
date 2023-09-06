@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylender.c                                         :+:      :+:    :+:   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -30,13 +30,11 @@ bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy *cy, int mode)
 	t_cor	tmp_hitpoint; // use tmp before calculate vec length ,So in false case hit-point will don't change value
 	t_cor	pos;
 
-	cy->top = vec_add(cy->pos, vec_scalar(cy->dir, (cy->height / 2)));
-	cy->bot = vec_sub(cy->pos, vec_scalar(cy->dir, (cy->height / 2)));
-	if (vec_len(vec_sub(ray.ori, cy->top)) < vec_len(vec_sub(ray.ori, cy->bot)))
+	denom = vec_dot(ray.dir, cy->dir);
+	if (denom < 0)
 		pos = cy->top;
 	else
 		pos = cy->bot;
-	denom = vec_dot(ray.dir, cy->dir);
 	if (ft_abs(denom) < EPSILON)
 		return (false);
 	distance = vec_dot(vec_sub(pos, ray.ori), cy->dir) / denom;
@@ -51,9 +49,9 @@ bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy *cy, int mode)
 	return (closest_disk(hit, cy, denom, distance));
 }
 
-static bool	closest_cylender(t_ray ray, t_hpl *hit, t_cy *cy, float t_closest)
+static bool	closest_cylinder(t_ray ray, t_hpl *hit, t_cy *cy, float distance)
 {
-	hit->distance = t_closest;
+	hit->distance = distance;
 	hit->point = vec_add(ray.oc, vec_scalar(ray.dir, hit->distance));
 	hit->dir = vec_norm(hit->point);
 	hit->point = vec_add(hit->point, cy->pos);
@@ -66,7 +64,7 @@ static bool	closest_cylender(t_ray ray, t_hpl *hit, t_cy *cy, float t_closest)
 // O is ray origin
 // D is ray direction
 // X is ray origin - Center point of object
-// V is vector of cylender
+// V is vector of cylinder
 // r = radius
 // m = is a scalar that determines the closest point on the axis to the hit point.
 // a = (D|D) - (D|V)^2
@@ -74,7 +72,7 @@ static bool	closest_cylender(t_ray ray, t_hpl *hit, t_cy *cy, float t_closest)
 // c = X|X - (X|V)^2 - r*r
 // t = hit distance
 // m = D|V*t + X|V
-bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy *cy, int mode)
+bool	hit_cylinder(t_ray ray, t_hpl *hit, t_cy *cy, int mode)
 {
 	t_fml	fml;
 	float	disc;
@@ -89,15 +87,15 @@ bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy *cy, int mode)
 	disc = discriminant(fml.a, fml.b, fml.c);
 	if (disc < 0.0f)
 		return (false);
-	t_closest = (-fml.b - sqrtf(disc)) / (2 * fml.a); // closest distance from camera to sphere
+	t_closest = (-fml.b - sqrtf(disc)) / (2 * fml.a);
 	if (t_closest < 0)
 		t_closest = (-fml.b + sqrtf(disc)) / (2 * fml.a);
 	if (t_closest < 0.00f || t_closest > hit->distance)
 		return (false);
 	cy->m = vec_dot(ray.dir, cy->dir) * t_closest + vec_dot(ray.oc, cy->dir);
-	if (cy->m > cy->height / 2 || cy->m < -(cy->height / 2)) // if equal maybe hit the edge of plane and it maybe don't saw it
+	if (ft_abs(cy->m) > cy->height / 2) // if equal maybe hit the edge of plane and it maybe don't saw it
 		return (false);
 	if (mode)
 		return (true);
-	return (closest_cylender(ray, hit, cy, t_closest));
+	return (closest_cylinder(ray, hit, cy, t_closest));
 }

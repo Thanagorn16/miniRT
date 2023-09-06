@@ -67,7 +67,7 @@ static bool	match(t_slt *slt, t_cor *pos, t_cor *dir, t_axis *axis)
 	else if (slt->index == 3)
 		printf("Plane has seleted\n");
 	else if (slt->index == 4)
-		printf("Cylender has seleted\n");
+		printf("Cylinder has seleted\n");
 	return (true);
 }
 
@@ -121,7 +121,7 @@ bool	display_object(t_amt amt, t_slt *slt)
 	if (amt.cy)
 	{
 		slt->obj[4] = true;
-		printf("Number[4] : Cylender\n");
+		printf("Number[4] : Cylinder\n");
 	}
 	printf("Press number to selete Object\n");
 	return (true);
