@@ -12,6 +12,7 @@
 #include "../libft/libft.h"
 #include "../get_next_line/get_next_line.h"
 
+#define FAILURE_INFO "Invalid information\n"
 #define FAILURE_RATIO "Ratio must not be less than 0.0 and must not be more than 1.0\n"
 #define FAILURE_RGB "RGB must not be less than 0 and must not be more than 255\n"
 #define FAILURE_VEC "Vector must not be less than -1.0 and must not be more than 1.0\n"
@@ -138,7 +139,7 @@ int		protect_vec_s(t_rt *rt, int i, int mode);
 // others
 int		parsing(int ac, char **av, t_rt *rt);
 float	ft_atof(const char *str);
-char	**split2(char const *s, char c1, char c2);
+char	**split_data(char const *s, char c1, char c2);
 void	display(t_rt *rt);
 void	free_data(t_rt *rt);
 void	free_exit(t_rt *rt, char *identifier, char *err);

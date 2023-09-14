@@ -16,7 +16,8 @@ OBJS	= $(SRCS:.c=.o)
 all: $(NAME)
 
 %o:%c
-	$(CC) $(C_FLAGS) -c $< -o $@
+	$(CC) -arch x86_64 $(C_FLAGS) -c $< -o $@
+##$(CC) $(C_FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)

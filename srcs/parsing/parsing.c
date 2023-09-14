@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: prachman <prachman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:42:17 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/02 13:46:20 by truangsi         ###   ########.fr       */
+/*   Updated: 2023/09/14 12:35:08 by prachman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	set_elem(char **av, t_rt *rt)
 		tmp = get_next_line(rt->fd);
 		if (!tmp)
 			break ;
-		set = split2(tmp, ' ', ',');
+		set = split_data(tmp, ' ', ',');
 		if (!set)
 			return (free_data(rt), exit(EXIT_FAILURE), 1);
 		if (ft_strcmp(set[0], "A") == 0)
