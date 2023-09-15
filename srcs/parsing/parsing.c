@@ -6,7 +6,7 @@
 /*   By: prachman <prachman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:42:17 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/14 12:35:08 by prachman         ###   ########.fr       */
+/*   Updated: 2023/09/15 08:33:07 by prachman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int parsing(int ac, char **av, t_rt *rt)
 		return (EXIT_FAILURE);
 
 	// check data (remove the comment below to use the function)
-	// display(rt);
-	// exit(0);
+	display(rt);
+	exit(0);
 	return (EXIT_SUCCESS);
 }

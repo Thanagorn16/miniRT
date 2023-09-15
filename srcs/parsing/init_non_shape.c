@@ -6,7 +6,7 @@
 /*   By: prachman <prachman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:42:13 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/14 12:34:45 by prachman         ###   ########.fr       */
+/*   Updated: 2023/09/15 08:34:34 by prachman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	set_cam(char **set, t_rt *rt)
 {
 	int static	i;
 
-	// if (ft_2dstrlen(set) != 8)
-	// 	free_exit(rt, "C:", FAILURE_INFO);
+	if (ft_2dstrlen(set) != 8)
+		free_exit(rt, "C:", FAILURE_INFO);
 	if (i > 0)
 		return (EXIT_FAILURE);
 	rt->cam.pos = set_cor(set[1], set[2], set[3]);
@@ -53,6 +53,8 @@ int	set_light(char **set, t_rt *rt)
 {
 	int static	i;
 
+	if (ft_2dstrlen(set) != 8)
+		free_exit(rt, "L:", FAILURE_INFO);
 	if (i > 0)
 		return (EXIT_FAILURE);
 	rt->light.pos = set_cor(set[1], set[2], set[3]);
