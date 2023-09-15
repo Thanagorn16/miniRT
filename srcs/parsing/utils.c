@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: prachman <prachman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 12:52:32 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/02 13:16:02 by truangsi         ###   ########.fr       */
+/*   Updated: 2023/09/15 09:20:01 by prachman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,35 @@ void	free_data(t_rt *rt)
 	free(rt->cy);
 }
 
-void	free_exit(t_rt *rt, char *identifier, char *err)
+void	free_exit(t_rt *rt, char **set, char *identifier, char *err)
 {
-	free(rt->pl);
-	free(rt->sp);
-	free(rt->cy);
+	free_2dstr(set);
+	free_data(rt);
 	printf("%s %s", identifier, err);
 	exit(EXIT_FAILURE);
 }
+
+// void	free_set(t_rt *rt, char **ptr, char *identifier, char *err)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (ptr[i])
+// 	{
+// 		free(ptr[i]);
+// 		i++;
+// 	}
+// 	free(ptr);
+// 	free_data(rt);
+// 	printf("%s %s", identifier, err);
+// 	exit(EXIT_FAILURE);
+// }
+
+// void	free_exit(t_rt *rt, char *identifier, char *err)
+// {
+// 	free(rt->pl);
+// 	free(rt->sp);
+// 	free(rt->cy);
+// 	printf("%s %s", identifier, err);
+// 	exit(EXIT_FAILURE);
+// }

@@ -130,17 +130,19 @@ int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_2dstrlen(char **str);
 void	free_2dstr(char **ptr);
 // protection
-int		protect_rat_n(t_rt *rt, int mode);
-int		protect_rgb_n(t_rt *rt, int mode);
-int		protect_vec_n(t_rt *rt);
-int		protect_rat_s(t_rt *rt, int i, int mode);
-int		protect_rgb_s(t_rt *rt, int i, int mode);
-int		protect_vec_s(t_rt *rt, int i, int mode);
+int		protect_rat_n(t_rt *rt, char **set, int mode);
+int		protect_rgb_n(t_rt *rt, char **set, int mode);
+int		protect_vec_n(t_rt *rt, char **set);
+int		protect_rat_s(t_rt *rt, char **set, int i, int mode);
+int		protect_rgb_s(t_rt *rt, char **set, int i, int mode);
+int		protect_vec_s(t_rt *rt, char **set, int i, int mode);
 // others
 int		parsing(int ac, char **av, t_rt *rt);
 float	ft_atof(const char *str);
 char	**split_data(char const *s, char c1, char c2);
 void	display(t_rt *rt);
 void	free_data(t_rt *rt);
-void	free_exit(t_rt *rt, char *identifier, char *err);
+void	free_exit(t_rt *rt, char **set, char *identifier, char *err);
+// void	free_exit(t_rt *rt, char *identifier, char *err);
+// void	free_set(t_rt *rt, char **ptr, char *identifier, char *err);
 #endif
