@@ -6,7 +6,7 @@
 /*   By: prachman <prachman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:42:17 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/15 08:33:07 by prachman         ###   ########.fr       */
+/*   Updated: 2023/09/15 21:15:54 by prachman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	set_elem(char **av, t_rt *rt)
 		set = split_data(tmp, ' ', ',');
 		if (!set)
 			return (free_data(rt), exit(EXIT_FAILURE), 1);
+		check_alpha(rt, set);
 		if (ft_strcmp(set[0], "A") == 0)
 			set_amb(set, rt);
 		if (ft_strcmp(set[0], "C") == 0)

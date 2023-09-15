@@ -130,6 +130,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_2dstrlen(char **str);
 void	free_2dstr(char **ptr);
 // protection
+void	check_alpha(t_rt *rt, char **set);
 int		protect_rat_n(t_rt *rt, char **set, int mode);
 int		protect_rgb_n(t_rt *rt, char **set, int mode);
 int		protect_vec_n(t_rt *rt, char **set);
