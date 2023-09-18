@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 00:49:50 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/08/31 14:22:20 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:35:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,22 @@
 
 # if defined(__linux__)
 #  include "keycode_linux.h"
+#  define LINUX_OS 1
 # else
+#  define LINUX_OS 0
 #  include "keycode_macos.h"
 # endif
 
-# define WD_WIDTH 1280
-# define WD_HEIGHT 720
+// # define WD_WIDTH 1280
+// # define WD_HEIGHT 720
+# define WD_WIDTH 640
+# define WD_HEIGHT 480
 
 # define FLT_MAX 3.4028234664e+38
 # define EPSILON 0.001f
 
 # define ROT_DEGREE 5
-# define MOVE_CMR_UNIT 0.5
+# define MOVE_CMR_UNIT 0.1
 # define MOVE_OBJ_UNIT 0.2
 # define BOUNCES 2
 
@@ -55,6 +59,7 @@ bool	setting_object(t_param *par, t_rt rt);
 bool	selete_object(int keycode, t_slt *slt, t_obj *obj);
 bool	move_object(int keycode, t_slt *slt);
 bool	rotate_object(int keycode, t_slt *slt);
+float	hit_inside(t_fml fml, float disc, bool *inside);
 bool	hit_sphere(t_ray ray, t_hpl *hit, t_sp *sp, int mode);
 bool	hit_plane(t_ray ray, t_hpl *hit, t_pl *pl, int mode);
 bool	cy_position(t_cy **cy, int amt);

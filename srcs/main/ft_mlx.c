@@ -24,6 +24,8 @@ bool	init_window(t_param *par)
 	if (par->win == NULL)
 	{
 		// free something
+		if (LINUX_OS)
+			mlx_destroy_display(par->mlx);
 		free(par->mlx);
 		return (false);
 	}
@@ -32,8 +34,11 @@ bool	init_window(t_param *par)
 
 int	close_win(t_param *par)
 {
+	// free something
 	mlx_destroy_image(par->mlx, par->img.ptr);
 	mlx_destroy_window(par->mlx, par->win);
+	if (LINUX_OS)
+		mlx_destroy_display(par->mlx);
 	free(par->mlx);
 	exit (0);
 	return (0);
@@ -44,7 +49,10 @@ bool	create_image(t_param *par)
 	par->img.ptr = mlx_new_image(par->mlx, WD_WIDTH, WD_HEIGHT);
 	if (par->img.ptr == NULL)
 	{
+		// free something
 		mlx_destroy_window(par->mlx, par->win);
+		if (LINUX_OS)
+			mlx_destroy_display(par->mlx);
 		free(par->mlx);
 		return (false);
 	}

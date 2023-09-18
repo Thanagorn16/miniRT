@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:50:44 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/09/01 10:29:47 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/09/18 14:16:55by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,21 @@ bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy *cy, int mode)
 {
 	float	denom;
 	float	distance;
+	float	distance_bot;
 	t_cor	tmp_hitpoint; // use tmp before calculate vec length ,So in false case hit-point will don't change value
 	t_cor	pos;
 
 	denom = vec_dot(ray.dir, cy->dir);
-	if (denom < 0)
-		pos = cy->top;
-	else
-		pos = cy->bot;
 	if (ft_abs(denom) < EPSILON)
 		return (false);
+	pos = cy->top;
 	distance = vec_dot(vec_sub(pos, ray.ori), cy->dir) / denom;
+	distance_bot = vec_dot(vec_sub(cy->bot, ray.ori), cy->dir) / denom;
+	if (distance < 0.00f || (distance_bot > 0.00f && distance_bot < distance))
+	{
+		distance = distance_bot;
+		pos = cy->bot;
+	}
 	if (distance < 0.00f || distance > hit->distance)
 		return (false);
 	tmp_hitpoint = vec_add(ray.ori, vec_scalar(ray.dir, distance));
@@ -45,8 +49,7 @@ bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy *cy, int mode)
 		return (false);
 	if (mode)
 		return (true);
-	hit->point = tmp_hitpoint;
-	return (closest_disk(hit, cy, denom, distance));
+	return (hit->point = tmp_hitpoint, closest_disk(hit, cy, denom, distance));
 }
 
 static bool	closest_cylinder(t_ray ray, t_hpl *hit, t_cy *cy, float distance)
@@ -54,6 +57,8 @@ static bool	closest_cylinder(t_ray ray, t_hpl *hit, t_cy *cy, float distance)
 	hit->distance = distance;
 	hit->point = vec_add(ray.oc, vec_scalar(ray.dir, hit->distance));
 	hit->dir = vec_norm(hit->point);
+	if (cy->inside)
+		hit->dir = vec_scalar(hit->dir, -1);
 	hit->point = vec_add(hit->point, cy->pos);
 	hit->clr = cy->clr;
 	hit->ctr = cy->pos;
@@ -78,6 +83,7 @@ bool	hit_cylinder(t_ray ray, t_hpl *hit, t_cy *cy, int mode)
 	float	disc;
 	float	t_closest;
 
+	cy->inside = false;
 	ray.oc = vec_sub(ray.ori, cy->pos);
 	fml.a = vec_dot(ray.dir, ray.dir) - ft_pow2(vec_dot(ray.dir, cy->dir));
 	fml.b = 2 * (vec_dot(ray.dir, ray.oc) - vec_dot(ray.dir, cy->dir)
@@ -88,8 +94,8 @@ bool	hit_cylinder(t_ray ray, t_hpl *hit, t_cy *cy, int mode)
 	if (disc < 0.0f)
 		return (false);
 	t_closest = (-fml.b - sqrtf(disc)) / (2 * fml.a);
-	if (t_closest < 0)
-		t_closest = (-fml.b + sqrtf(disc)) / (2 * fml.a);
+	if (t_closest < 0.00f)
+		t_closest = hit_inside(fml, disc, &cy->inside);
 	if (t_closest < 0.00f || t_closest > hit->distance)
 		return (false);
 	cy->m = vec_dot(ray.dir, cy->dir) * t_closest + vec_dot(ray.oc, cy->dir);

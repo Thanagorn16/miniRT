@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:50:59 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/09/01 10:28:31 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:15:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static bool	closest_sphere(t_ray ray, t_hpl *hit, t_sp *sp, float t_closest)
 	hit->distance = t_closest;
 	hit->point = vec_add(ray.oc, vec_scalar(ray.dir, hit->distance)); // closest point of sphere on matrix
 	hit->dir = vec_norm(hit->point);
+	if (sp->inside)
+		hit->dir = vec_scalar(hit->dir, -1);
 	hit->point = vec_add(hit->point, sp->pos); // move hit point back to the real position
 	hit->clr = sp->clr;
 	hit->ctr = sp->pos;
@@ -38,6 +40,7 @@ bool	hit_sphere(t_ray ray, t_hpl *hit, t_sp *sp, int mode)
 	float	disc;
 	float	t_closest;
 
+	sp->inside = false;
 	ray.oc = vec_sub(ray.ori, sp->pos);
 	fml.a = vec_dot(ray.dir, ray.dir);
 	fml.b = 2 * vec_dot(ray.oc, ray.dir);
@@ -47,7 +50,7 @@ bool	hit_sphere(t_ray ray, t_hpl *hit, t_sp *sp, int mode)
 		return (false);
 	t_closest = (-fml.b - sqrtf(disc)) / (2 * fml.a); // closest distance from camera to sphere
 	if (t_closest < 0) // incase of position of camera are inside the sphere
-		t_closest = (-fml.b + sqrtf(disc)) / (2 * fml.a);
+		t_closest = hit_inside(fml, disc, &sp->inside);
 	if (t_closest < 0.00f || t_closest > hit->distance)
 		return (false);
 	if (mode) // To only calculate that hit any object.

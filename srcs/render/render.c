@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:51:15 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/08/31 13:59:01 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:09:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	ray_tracing(t_ray ray, t_obj *obj)
 	tmp = (t_rgb){0, 0, 0};
 	hit_object(ray, &hit, obj);
 	if (hit.distance < 0)
-		return (rgb_to_clr(clr));
+		return (rgb_to_clr(obj->ambient));
 	tmp = ambient_light(clr, hit.clr, obj->ambient);
 	tmp = shadowing(tmp, hit, obj);
 	clr = add_clr(clr, ratio_clr(tmp, mul));
@@ -88,8 +88,8 @@ int	render_scene(t_param *par)
 		pix.y++;
 	}
 	mlx_put_image_to_window(par->mlx, par->win, par->img.ptr, 0, 0);
-	par->current = get_elapse_time();
-	printf("Frame rate : %ld ms\n", (par->current - par->start)/ 1000);
-	par->start = par->current;
+	// par->current = get_elapse_time(); // framerate
+	// printf("Frame rate : %ld ms\n", (par->current - par->start)/ 1000); // framerate
+	// par->start = par->current; // framerate
 	return (true);
 }

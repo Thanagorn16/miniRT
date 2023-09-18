@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:50:55 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/08/31 13:50:56 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:08:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+float	hit_inside(t_fml fml, float disc, bool *inside)
+{
+	*inside = true;
+	return ((-fml.b + sqrtf(disc)) / (2 * fml.a));
+}
 
 bool	hit_plane(t_ray ray, t_hpl *hit, t_pl *pl, int mode)
 {

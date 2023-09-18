@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_ray.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:50:05 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/08/31 13:50:06 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:02:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ typedef struct s_param
 	t_obj	obj;
 	t_cmr	cmr;
 	t_slt	slt;
-	long int	start;
-	long int	current;
+	long int	start; // framerate
+	long int	current; // framerate
 }	t_param;
 
 #endif

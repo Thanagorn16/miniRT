@@ -73,6 +73,7 @@ typedef struct s_sp
 	t_rgb	clr;
 	float	dia;
 	float	radius;
+	bool	inside;
 } t_sp;
 
 // m = is a scalar that determines the closest point on the axis to the hit point.
@@ -88,6 +89,7 @@ typedef struct s_cy
 	float	dia;
 	float	radius;
 	float	m;
+	bool	inside;
 } t_cy;
 
 // Amount of object

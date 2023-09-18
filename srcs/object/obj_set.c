@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   obj_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:50:52 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/08/31 14:20:52 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:22:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ bool	cy_position(t_cy **cy, int amt)
 	t_cor	half_pos;
 	int		i;
 
-	half_pos = vec_scalar((*cy)[i].dir, ((*cy)[i].height / 2));
 	i = 0;
 	while (i < amt)
 	{
+		half_pos = vec_scalar((*cy)[i].dir, ((*cy)[i].height / 2));
 		(*cy)[i].top = vec_add((*cy)[i].pos, half_pos);
 		(*cy)[i].bot = vec_sub((*cy)[i].pos, half_pos);
 		i++;
@@ -31,14 +31,13 @@ bool	cy_position(t_cy **cy, int amt)
 static bool	setting_cylinder(t_cy **cy, int amt)
 {
 	int		i;
-	t_cor	y_axis;
 
 	i = 0;
-	y_axis = (t_cor){0, 1.0f, 0};
 	while (i < amt)
 	{
 		(*cy)[i].dir = vec_norm((*cy)[i].dir);
 		(*cy)[i].axis = calculate_axis((*cy)[i].dir);
+		(*cy)[i].inside = false;
 		i++;
 	}
 	return (true);

@@ -90,5 +90,6 @@ bool	move_camera(int keycode, t_cmr *cmr)
 		cmr->post = vec_sub(cmr->post, cmr->move[PEDESTAL]);
 	else
 		return (false);
+	cmr_post(*cmr); // debug 
 	return (true);
 }
