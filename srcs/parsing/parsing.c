@@ -6,7 +6,7 @@
 /*   By: prachman <prachman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:42:17 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/15 21:21:10 by prachman         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:53:55 by prachman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,34 @@ int	set_elem(char **av, t_rt *rt)
 		tmp = get_next_line(rt->fd);
 		if (!tmp)
 			break ;
+		// printf("get tmp: %s\n", tmp);
 		set = split_data(tmp, ' ', ',');
 		if (!set)
 			return (free_data(rt), exit(EXIT_FAILURE), 1);
+		// printf("split data\n");
 		check_alpha(rt, set);
-		if (ft_strcmp(set[0], "A") == 0)
-			set_amb(set, rt);
-		if (ft_strcmp(set[0], "C") == 0)
-			set_cam(set, rt);
-		if (ft_strcmp(set[0], "L") == 0)
-			set_light(set, rt);
-		if (ft_strcmp(set[0], "sp") == 0)
-			set_sp(set, rt);
-		if (ft_strcmp(set[0], "pl") == 0)
-			set_pl(set, rt);
-		if (ft_strcmp(set[0], "cy") == 0)
-			set_cy(set, rt);
+		// printf("check alphabet\n");
+		if (ft_strcmp(tmp, "\n") != 0)
+		{
+			if (ft_strcmp(set[0], "A") == 0)
+				set_amb(set, rt);
+			// printf("111111111\n");
+			if (ft_strcmp(set[0], "C") == 0)
+				set_cam(set, rt);
+			// printf("222222222\n");
+			if (ft_strcmp(set[0], "L") == 0)
+				set_light(set, rt);
+			// printf("333333333\n");
+			if (ft_strcmp(set[0], "sp") == 0)
+				set_sp(set, rt);
+			// printf("44444444\n");
+			if (ft_strcmp(set[0], "pl") == 0)
+				set_pl(set, rt);
+			// printf("55555555\n");
+			if (ft_strcmp(set[0], "cy") == 0)
+				set_cy(set, rt);
+			// printf("666666666\n");
+		}
 		free(tmp);
 	}
 	close(rt->fd);
