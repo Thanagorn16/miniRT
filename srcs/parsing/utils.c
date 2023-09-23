@@ -6,7 +6,7 @@
 /*   By: prachman <prachman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 12:52:32 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/15 21:20:19 by prachman         ###   ########.fr       */
+/*   Updated: 2023/09/23 20:39:29 by prachman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,24 @@ void	free_data(t_rt *rt)
 	free(rt->pl);
 	free(rt->sp);
 	free(rt->cy);
+	free(rt->tmp);
 }
 
-void	free_exit(t_rt *rt, char **set, char *identifier, char *err)
+void	free_exit(t_rt *rt, char **set, char *err)
 {
+	printf("%s %s", set[0], err);
 	free_2dstr(set);
 	free_data(rt);
-	printf("%s %s", identifier, err);
 	exit(EXIT_FAILURE);
 }
+
+// void	free_exit(t_rt *rt, char **set, char *identifier, char *err)
+// {
+// 	free_2dstr(set);
+// 	free_data(rt);
+// 	printf("%s %s", identifier, err);
+// 	exit(EXIT_FAILURE);
+// }
 
 
 int	ft_strcmp(const char *s1, const char *s2)
@@ -61,11 +70,40 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));
 }
 
+void	check_identifier(t_rt *rt, char **set)
+{
+	int	cn;
+
+	cn = 0;
+	if (ft_strcmp(set[0], "A") == 0)
+		cn++;
+	else if (ft_strcmp(set[0], "C") == 0)
+		cn++;
+	else if (ft_strcmp(set[0], "L") == 0)
+        cn++;
+	else if (ft_strcmp(set[0], "pl") == 0)
+		cn++;
+	else if (ft_strcmp(set[0], "sp") == 0)
+		cn++;
+	else if (ft_strcmp(set[0], "cy") == 0)
+		cn++;
+	else if (set[0][0] == '#')
+		cn++;
+	if (cn == 0)
+	{
+		printf("Invalid identifier");
+		free_2dstr(set);
+		free_data(rt);
+		exit(EXIT_FAILURE);
+	}
+}
+
 void	check_alpha(t_rt *rt, char **set)
 {
 	int	i;
 	int	j;
 
+	check_identifier(rt, set);
 	i = 1;
 	while (set[i])
 	{

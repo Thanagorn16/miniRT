@@ -108,6 +108,7 @@ typedef struct s_rt
 	t_sp		*sp;
 	t_cy		*cy;
 	t_amt		amt;
+	char		*tmp;
 	int			fd;
 } t_rt;
 
@@ -130,6 +131,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_2dstrlen(char **str);
 void	free_2dstr(char **ptr);
 // protection
+void	check_identifier(t_rt *rt, char **set);
 void	check_alpha(t_rt *rt, char **set);
 int		protect_rat_n(t_rt *rt, char **set, int mode);
 int		protect_rgb_n(t_rt *rt, char **set, int mode);
@@ -143,7 +145,8 @@ float	ft_atof(const char *str);
 char	**split_data(char const *s, char c1, char c2);
 void	display(t_rt *rt);
 void	free_data(t_rt *rt);
-void	free_exit(t_rt *rt, char **set, char *identifier, char *err);
+void	free_exit(t_rt *rt, char **set, char *err);
+// void	free_exit(t_rt *rt, char **set, char *identifier, char *err);
 // void	free_exit(t_rt *rt, char *identifier, char *err);
 // void	free_set(t_rt *rt, char **ptr, char *identifier, char *err);
 #endif
