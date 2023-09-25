@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: prachman <prachman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:42:17 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/02 13:46:20 by truangsi         ###   ########.fr       */
+/*   Updated: 2023/09/23 20:40:17 by prachman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,34 @@
 
 int	set_elem(char **av, t_rt *rt)
 {
-	char	*tmp;
 	char	**set;
 
 	rt->fd = open(av[1], O_RDONLY);
 	while (1)
 	{
-		tmp = get_next_line(rt->fd);
-		if (!tmp)
+		rt->tmp = get_next_line(rt->fd);
+		if (!rt->tmp)
 			break ;
-		set = split2(tmp, ' ', ',');
+		set = split_data(rt->tmp, ' ', ',');
 		if (!set)
 			return (free_data(rt), exit(EXIT_FAILURE), 1);
-		if (ft_strcmp(set[0], "A") == 0)
-			set_amb(set, rt);
-		if (ft_strcmp(set[0], "C") == 0)
-			set_cam(set, rt);
-		if (ft_strcmp(set[0], "L") == 0)
-			set_light(set, rt);
-		if (ft_strcmp(set[0], "sp") == 0)
-			set_sp(set, rt);
-		if (ft_strcmp(set[0], "pl") == 0)
-			set_pl(set, rt);
-		if (ft_strcmp(set[0], "cy") == 0)
-			set_cy(set, rt);
-		free(tmp);
+		if (ft_strcmp(rt->tmp, "\n") != 0)
+		{
+			check_alpha(rt, set);
+			if (ft_strcmp(set[0], "A") == 0)
+				set_amb(set, rt);
+			if (ft_strcmp(set[0], "C") == 0)
+				set_cam(set, rt);
+			if (ft_strcmp(set[0], "L") == 0)
+				set_light(set, rt);
+			if (ft_strcmp(set[0], "sp") == 0)
+				set_sp(set, rt);
+			if (ft_strcmp(set[0], "pl") == 0)
+				set_pl(set, rt);
+			if (ft_strcmp(set[0], "cy") == 0)
+				set_cy(set, rt);
+		}
+		free(rt->tmp);
 	}
 	close(rt->fd);
 	return (EXIT_SUCCESS);
@@ -70,7 +73,7 @@ int parsing(int ac, char **av, t_rt *rt)
 		return (EXIT_FAILURE);
 
 	// check data (remove the comment below to use the function)
-	// display(rt);
-	// exit(0);
+	display(rt);
+	exit(0);
 	return (EXIT_SUCCESS);
 }
