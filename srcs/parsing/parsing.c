@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prachman <prachman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:42:17 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/23 20:40:17 by prachman         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:56:52 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int parsing(int ac, char **av, t_rt *rt)
 		return (EXIT_FAILURE);
 
 	// check data (remove the comment below to use the function)
-	display(rt);
-	exit(0);
+	// display(rt);
+	// exit(0);
 	return (EXIT_SUCCESS);
 }
