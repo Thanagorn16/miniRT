@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 00:49:50 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/08/31 10:46:20 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:35:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,26 @@
 # include <unistd.h>
 # include <math.h>
 
+# include <sys/time.h>
+
 # if defined(__linux__)
 #  include "keycode_linux.h"
+#  define LINUX_OS 1
 # else
+#  define LINUX_OS 0
 #  include "keycode_macos.h"
 # endif
 
-# define WD_WIDTH 1280
-# define WD_HEIGHT 720
+// # define WD_WIDTH 1280
+// # define WD_HEIGHT 720
+# define WD_WIDTH 640
+# define WD_HEIGHT 480
 
 # define FLT_MAX 3.4028234664e+38
 # define EPSILON 0.001f
 
 # define ROT_DEGREE 5
-# define MOVE_CMR_UNIT 0.5
+# define MOVE_CMR_UNIT 0.1
 # define MOVE_OBJ_UNIT 0.2
 # define BOUNCES 2
 
@@ -53,10 +59,12 @@ bool	setting_object(t_param *par, t_rt rt);
 bool	selete_object(int keycode, t_slt *slt, t_obj *obj);
 bool	move_object(int keycode, t_slt *slt);
 bool	rotate_object(int keycode, t_slt *slt);
-bool	hit_sphere(t_ray ray, t_hpl *hit, t_sp sp, int mode);
-bool	hit_plane(t_ray ray, t_hpl *hit, t_pl pl, int mode);
-bool	hit_cylender(t_ray ray, t_hpl *hit, t_cy cy, int mode);
-bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy cy, int mode);
+float	hit_inside(t_fml fml, float disc, bool *inside);
+bool	hit_sphere(t_ray ray, t_hpl *hit, t_sp *sp, int mode);
+bool	hit_plane(t_ray ray, t_hpl *hit, t_pl *pl, int mode);
+bool	cy_position(t_cy **cy, int amt);
+bool	hit_cylinder(t_ray ray, t_hpl *hit, t_cy *cy, int mode);
+bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy *cy, int mode);
 // Light
 t_rgb	ambient_light(t_rgb clr, t_rgb objclr, t_rgb amb);
 t_rgb	shadowing(t_rgb	clr, t_hpl hit, t_obj *obj);
@@ -79,6 +87,7 @@ void	debug_cor(t_cor cor, char *str);
 void	debug_rgb(t_rgb rgb, char *str);
 void	test_ray_point(t_ray ray, t_cy *cy, t_sp *sp, t_pl *pl, int mode);
 void	debug_diskey(int keycode);
+long int	get_elapse_time(void);
 // Algebra
 float	ft_pow2(float num);
 float	ft_abs(float num);
@@ -93,6 +102,7 @@ float	vec_len(t_cor vec);
 t_cor	vec_norm(t_cor vec);
 float	vec_dot(t_cor a, t_cor b);
 t_cor	vec_cross(t_cor a, t_cor b);
+t_axis	calculate_axis(t_cor dir);
 t_axis	tilt_dir(t_axis old, int degree);
 t_axis	plan_dir(t_axis old, int degree);
 t_axis	plan_catesian_dir(t_axis old, int degree);

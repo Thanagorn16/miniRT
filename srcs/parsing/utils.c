@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prachman <prachman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 12:52:32 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/23 20:39:29 by prachman         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:30:17 by truangsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,15 @@ void	check_alpha(t_rt *rt, char **set)
 	while (set[i])
 	{
 		j = 0;
+		if (set[0][0] == '#')
+			break;
 		while (set[i][j])
 		{
 			if ((set[i][j] >= 'A' && set[i][j] <= 'Z') ||
 				(set[i][j] >= 'a' && set[i][j] <= 'z'))
 			{
+				printf("here: %s\n", set[0]);
+				printf("here: %c\n", set[0][0]);
 				free_2dstr(set);
 				free_data(rt);
 				printf("Error: Information besides indentifiers must be number only");

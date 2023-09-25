@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algebra.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 13:50:30 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/08/31 13:50:30 by tnantaki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 float	ft_pow2(float num)
@@ -26,7 +38,7 @@ float	ft_radian(int degree)
 
 float	discriminant(float a, float b, float c)
 {
-	float	num;
+	register float	num;
 
 	num = ft_pow2(b) - 4 * a * c;
 	if (num < 0)

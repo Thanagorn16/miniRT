@@ -63,3 +63,17 @@ t_axis	test_rotate(t_axis old, int degree)
 	debug_cor(new.ver, "axis.ver: ");
 	return (new);
 }
+
+// Change the hitpoint position a little bit
+// for not reflect to the surface of yourseft.
+t_ray reflect_ray(t_ray ray, t_hpl *hit, t_light light)
+{
+	t_ray	reflect;
+	t_cor	diff;
+
+	reflect.ori = vec_add(hit->point, vec_scalar(hit->dir, EPSILON));
+	reflect.dir = vec_scalar(ray.dir, -1); // invert ray direction
+	diff = vec_sub(hit->dir, reflect.dir);
+	reflect.dir = vec_norm(vec_add(hit->dir, diff));
+	return (reflect);
+}

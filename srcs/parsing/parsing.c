@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prachman <prachman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:42:17 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/23 20:40:17 by prachman         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:39:01 by truangsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ int	set_elem(char **av, t_rt *rt)
 	return (EXIT_SUCCESS);
 }
 
-int parsing(int ac, char **av, t_rt *rt)
+int	parsing(int ac, char **av, t_rt *rt)
 {
 	char	**name;
 	int		len;
 
 	if (ac != 2)
-	return (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 
-	//check input file
+	// check input file
 	name = ft_split(av[1], '.');
 	if (!name)
 		exit(EXIT_FAILURE);
@@ -73,7 +73,7 @@ int parsing(int ac, char **av, t_rt *rt)
 		return (EXIT_FAILURE);
 
 	// check data (remove the comment below to use the function)
-	display(rt);
-	exit(0);
+	// display(rt);
+	// exit(0);
 	return (EXIT_SUCCESS);
 }

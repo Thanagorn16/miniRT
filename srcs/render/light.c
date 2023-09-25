@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 13:51:11 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/08/31 13:51:11 by tnantaki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 // Ambient light contribute every light of every point in the scene
-t_rgb ambient_light(t_rgb clr, t_rgb objclr, t_rgb amb)
+t_rgb	ambient_light(t_rgb clr, t_rgb objclr, t_rgb amb)
 {
 	objclr = shade_clr(objclr, amb);
 	clr = add_clr(clr, objclr);
 	return (clamp_clr(clr));
 }
 
-bool block_object(t_ray ray, t_obj *obj, float distance)
+bool	block_object(t_ray ray, t_obj *obj, float distance)
 {
 	t_hpl	hit;
 	int		i;
@@ -18,26 +30,27 @@ bool block_object(t_ray ray, t_obj *obj, float distance)
 	i = 0;
 	while (i < obj->amt.sp)
 	{
-		if (hit_sphere(ray, &hit, obj->sp[i++], 1))
+		if (hit_sphere(ray, &hit, &obj->sp[i++], 1))
 			return (true);
 	}
 	i = 0;
 	while (i < obj->amt.pl)
 	{
-		if (hit_plane(ray, &hit, obj->pl[i++], 1))
+		if (hit_plane(ray, &hit, &obj->pl[i++], 1))
 			return (true);
 	}
 	i = 0;
 	while (i < obj->amt.cy)
 	{
-		if (hit_cylender(ray, &hit, obj->cy[i], 1) ||
-			disk_intersection(ray, &hit, obj->cy[i++], 1))
+		if (hit_cylinder(ray, &hit, &obj->cy[i], 1)
+			|| disk_intersection(ray, &hit, &obj->cy[i++], 1))
 			return (true);
 	}
 	return (false);
 }
 
 // Point light will create shade and shadow effect to object
+// by using invert light drection dot product with hit point of object
 t_rgb	shadowing(t_rgb clr, t_hpl hit, t_obj *obj)
 {
 	float	shade_ratio;
@@ -45,9 +58,8 @@ t_rgb	shadowing(t_rgb clr, t_hpl hit, t_obj *obj)
 	t_ray	light;
 
 	light.ori = vec_add(hit.point, vec_scalar(hit.dir, EPSILON));
-	light.dir = vec_sub(obj->light.pos, hit.point); // invert light direction
+	light.dir = vec_sub(obj->light.pos, hit.point);
 	light.dir = vec_norm(light.dir);
-
 	light_distance = vec_len(vec_sub(light.ori, obj->light.pos));
 	if (block_object(light, obj, light_distance))
 		return (clr);
@@ -56,18 +68,4 @@ t_rgb	shadowing(t_rgb clr, t_hpl hit, t_obj *obj)
 	hit.clr = ratio_clr(hit.clr, shade_ratio);
 	clr = add_clr(clr, hit.clr);
 	return (clamp_clr(clr));
-}
-
-t_ray reflect_ray(t_ray ray, t_hpl *hit, t_light light)
-{
-	t_ray	reflect;
-	t_cor	diff;
-
-	// Change the hitpoint position a little bit
-	// for not reflect to the surface of yourseft.
-	reflect.ori = vec_add(hit->point, vec_scalar(hit->dir, EPSILON));
-	reflect.dir = vec_scalar(ray.dir, -1); // invert ray direction
-	diff = vec_sub(hit->dir, reflect.dir);
-	reflect.dir = vec_norm(vec_add(hit->dir, diff));
-	return (reflect);
 }

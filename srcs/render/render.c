@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 13:51:15 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/09/18 17:09:56 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 // Generate ray direction that shooting to all pixel
@@ -20,15 +32,15 @@ bool	hit_object(t_ray ray, t_hpl *hit, t_obj *obj)
 	hit->hit = false;
 	i = 0;
 	while (i < obj->amt.sp)
-		hit_sphere(ray, hit, obj->sp[i++], 0);
+		hit_sphere(ray, hit, &obj->sp[i++], 0);
 	i = 0;
 	while (i < obj->amt.pl)
-		hit_plane(ray, hit, obj->pl[i++], 0);
+		hit_plane(ray, hit, &obj->pl[i++], 0);
 	i = 0;
 	while (i < obj->amt.cy)
 	{
-		hit_cylender(ray, hit, obj->cy[i], 0);
-		disk_intersection(ray, hit, obj->cy[i++], 0);
+		hit_cylinder(ray, hit, &obj->cy[i], 0);
+		disk_intersection(ray, hit, &obj->cy[i++], 0);
 	}
 	if (!hit->hit)
 		return (hit->distance = -1.00f, false);
@@ -40,25 +52,29 @@ static int	ray_tracing(t_ray ray, t_obj *obj)
 	t_hpl	hit;
 	t_rgb	clr;
 	t_rgb	tmp;
-	float	mul = 1.0f;
+	float	mul;
 
-	clr = (t_rgb){0,0,0};
-	tmp = (t_rgb){0,0,0};
+	mul = 1.0f;
+	clr = (t_rgb){0, 0, 0};
+	tmp = (t_rgb){0, 0, 0};
 	hit_object(ray, &hit, obj);
 	if (hit.distance < 0)
-		return (rgb_to_clr(clr));
+		return (rgb_to_clr(obj->ambient));
 	tmp = ambient_light(clr, hit.clr, obj->ambient);
 	tmp = shadowing(tmp, hit, obj);
 	clr = add_clr(clr, ratio_clr(tmp, mul));
 	return (rgb_to_clr(clr));
 }
 
+// ray that point to viewport map to pixel on screen
 int	render_scene(t_param *par)
 {
-	t_pix		pix;
-	t_ray		ray; // vector ray that point to viewport map to pixel on screen
+	t_pix	pix;
+	t_ray	ray;
 
 	pix.y = 0;
+	if (par->obj.amt.cy)
+		cy_position(&par->obj.cy, par->obj.amt.cy);
 	while (pix.y < WD_HEIGHT)
 	{
 		pix.x = 0;
@@ -72,5 +88,8 @@ int	render_scene(t_param *par)
 		pix.y++;
 	}
 	mlx_put_image_to_window(par->mlx, par->win, par->img.ptr, 0, 0);
+	// par->current = get_elapse_time(); // framerate
+	// printf("Frame rate : %ld ms\n", (par->current - par->start)/ 1000); // framerate
+	// par->start = par->current; // framerate
 	return (true);
 }

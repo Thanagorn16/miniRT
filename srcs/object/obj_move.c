@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   obj_move.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 13:50:49 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/08/31 13:50:50 by tnantaki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 bool	rotate_object(int keycode, t_slt *slt)
@@ -55,14 +67,14 @@ static bool	match(t_slt *slt, t_cor *pos, t_cor *dir, t_axis *axis)
 	else if (slt->index == 3)
 		printf("Plane has seleted\n");
 	else if (slt->index == 4)
-		printf("Cylender has seleted\n");
+		printf("Cylinder has seleted\n");
 	return (true);
 }
 
 bool	selete_object(int keycode, t_slt *slt, t_obj *obj)
 {
 	if (keycode == KEY_ZERO)
-		return (slt->index = 0, printf("Camera has seleted\n", true));
+		return (slt->index = 0, printf("Camera has seleted\n"), true);
 	else if (keycode == KEY_ONE && slt->obj[1])
 	{
 		slt->index = 1;
@@ -109,7 +121,7 @@ bool	display_object(t_amt amt, t_slt *slt)
 	if (amt.cy)
 	{
 		slt->obj[4] = true;
-		printf("Number[4] : Cylender\n");
+		printf("Number[4] : Cylinder\n");
 	}
 	printf("Press number to selete Object\n");
 	return (true);

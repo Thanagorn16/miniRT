@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debugger.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 13:50:18 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/08/31 13:50:18 by tnantaki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 void	cmr_post(t_cmr cmr)
@@ -35,11 +47,11 @@ void	test_ray_point(t_ray ray, t_cy* cy, t_sp* sp, t_pl* pl, int mode)
 	hit.distance = FLT_MAX;
 	hit.hit = false;
 	if (cy)
-		hit_cylender(ray, &hit, *cy, mode);
+		hit_cylinder(ray, &hit, cy, mode);
 	else if (sp)
-		hit_sphere(ray, &hit, *sp, mode);
+		hit_sphere(ray, &hit, sp, mode);
 	else if (pl)
-		hit_plane(ray, &hit, *pl, mode);
+		hit_plane(ray, &hit, pl, mode);
 	debug_cor(hit.point, "hitpoint-");
 	debug_cor(hit.dir, "hitdir-");
 	printf("distance: %f\n", hit.distance);
@@ -67,4 +79,12 @@ void	debug_diskey(int keycode)
 		printf("## Press key move up: ##\n");
 	else if (keycode == KEY_E)
 		printf("## Press key move down: ##\n");
+}
+
+long int	get_elapse_time(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000000 + time.tv_usec);
 }

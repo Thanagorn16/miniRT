@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   struct_ray.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 13:50:05 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/09/18 17:02:28 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCT_RAY_H
 # define STRUCT_RAY_H
 
@@ -76,11 +88,11 @@ typedef struct s_hitpayload
 
 typedef struct s_selete
 {
-	bool	obj[5];
-	int		index;
+	t_axis	*axis;
 	t_cor	*pos;
 	t_cor	*dir;
-	t_axis	*axis;
+	bool	obj[5];
+	int		index;
 }	t_slt;
 
 typedef struct s_param
@@ -91,6 +103,8 @@ typedef struct s_param
 	t_obj	obj;
 	t_cmr	cmr;
 	t_slt	slt;
+	long int	start; // framerate
+	long int	current; // framerate
 }	t_param;
 
 #endif

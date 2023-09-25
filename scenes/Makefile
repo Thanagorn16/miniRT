@@ -17,7 +17,7 @@ OBJS_DIRS	= $(foreach dir, $(DIR_SUBS), $(addprefix $(DIR_OBJS)/, $(dir)))
 CC			= cc
 RM			= rm -f
 HEAD_MAN	= -Iincludes
-CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		= #-Wall -Wextra -Werror -g -fsanitize=address
 
 ### Libft Flags ###
 LIBFT_FLAG	= -Llibft -lft
@@ -49,19 +49,19 @@ OBJS		=	$(subst $(DIR_SRCS), $(DIR_OBJS), $(SRCS:.c=.o))
 $(DIR_OBJS)/%.o:$(DIR_SRCS)/%.c
 	@mkdir -p $(DIR_OBJS) $(OBJS_DIRS)
 	$(CC) $(CFLAGS) $(HEAD_MAN) $(HEAD_MLX) $(LIBFT_HD) $(GNL_HD) -c $< -o $@
-# $(CC) -arch x86_64 $(CFLAGS) $(HEAD_MAN) $(HEAD_MLX) $(LIBFT_HD) $(GNL_HD) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(LIBFT_PATH)
 	@make -C $(GNL_PATH)
+	@make -C $(DIR_MLX)
 	$(CC) $(CFLAGS) $(OBJS) $(FLAGS_MLX) $(LIBFT_FLAG) $(GNL_FLAG) -o $(NAME)
-# $(CC) -arch x86_64 $(CFLAGS) $(OBJS) $(FLAGS_MLX) $(LIBFT_FLAG) $(GNL_FLAG) -o $(NAME)
 
 clean:
 	@make fclean -C $(LIBFT_PATH)
 	@make fclean -C $(GNL_PATH)
+	@make clean -C $(DIR_MLX)
 	$(RM) $(OBJS)
 	$(RM) -r $(DIR_OBJS)
 
