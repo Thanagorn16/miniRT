@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:50:25 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/09/18 13:04:32 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/26 12:23:38 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int ac, char **av)
 	t_param	par;
 	t_rt	rt;
 
-	// par.start = get_elapse_time(); // framerate
+	par.start = get_elapse_time(); // framerate
 	if (parsing(ac, av, &rt))
 		return (1);
 	setting_camera(&par, rt.cam);
