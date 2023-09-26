@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: prachman <prachman@student.42.fr>          +#+  +:+       +#+         #
+#    By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/18 13:26:54 by truangsi          #+#    #+#              #
-#    Updated: 2023/09/13 09:02:34 by prachman         ###   ########.fr        #
+#    Updated: 2023/09/26 14:40:54 by truangsi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 %o:%c
-	gcc -arch x86_64 $(FLAGS) -c $< -o $@
-##gcc $(FLAGS) -c $< -o $@
+	gcc $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)
