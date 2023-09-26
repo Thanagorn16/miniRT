@@ -6,13 +6,13 @@
 /*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 12:52:10 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/25 11:36:11 by truangsi         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:16:20 by truangsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_cor set_cor(char *set1, char *set2, char *set3)
+t_cor	set_cor(char *set1, char *set2, char *set3)
 {
 	t_cor	cor;
 
@@ -34,7 +34,7 @@ t_rgb	set_clr(char **set)
 	return (clr);
 }
 
-// count the number of arithmetic shape
+// count shape(s) in the info
 void	count_shape(char **av, t_rt *rt)
 {
 	char	*tmp;
@@ -61,7 +61,6 @@ void	count_shape(char **av, t_rt *rt)
 		free(tmp);
 	}
 	close(rt->fd);
-	// printf("done count shape\n");
 }
 
 // allocate all the shapes in the data
@@ -79,5 +78,4 @@ void	alloc_shape(t_rt *rt)
 		rt->cy = malloc(sizeof(t_rt) * rt->amt.cy);
 	else
 		rt->cy = NULL;
-	// printf("done count allocate shape\n");
 }

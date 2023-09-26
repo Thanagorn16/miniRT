@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/07 12:08:46 by truangsi          #+#    #+#             */
-/*   Updated: 2023/04/18 12:45:19 by truangsi         ###   ########.fr       */
+/*   Created: 2023/09/26 11:03:01 by truangsi          #+#    #+#             */
+/*   Updated: 2023/09/26 11:07:08 by truangsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int	ft_atoi(const char *str)
 	i = 0;
 	nev = 0;
 	temp = 0;
-	while (str[i] != '\0' && (str[i] == ' ' || str[i] == '\n' || str[i] == '\t'
-			|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r'))
+	while (str[i] != '\0' && (str[i] == ' ' || str[i] == '\n'
+			|| str[i] == '\t' || str[i] == '\v'
+			|| str[i] == '\f' || str[i] == '\r'))
 		i++;
 	if (str[i] != '\0' && str[i] == '-')
 	{

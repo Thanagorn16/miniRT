@@ -3,39 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   split_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prachman <prachman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:20:30 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/14 12:28:16 by prachman         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:21:29 by truangsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int ft_countword(char const *s, char c1, char c2)
+static int	ft_countword(char const *s, char c1, char c2)
 {
-	int i;
-	int cw;
+	int	i;
+	int	cw;
 
 	i = 0;
 	cw = 0;
 	while (s[i])
 	{
-		while (s[i] && (s[i] == c1 || s[i] == c2 || s[i] == '\t' || s[i] == '\n'))
+		while (s[i] && (s[i] == c1 || s[i] == c2
+				|| s[i] == '\t' || s[i] == '\n'))
 			i++;
-		while (s[i] && (s[i] != c1 && s[i] != c2 && s[i] != '\t' && s[i] != '\n'))
+		while (s[i] && (s[i] != c1 && s[i] != c2
+				&& s[i] != '\t' && s[i] != '\n'))
 		{
-			// printf("s[i]:%c\n", s[i]);
 			i++;
-			if (s[i] == c1 || s[i] == c2 || s[i] == '\t' || s[i] == '\n' || s[i] == '\0')
+			if (s[i] == c1 || s[i] == c2 || s[i] == '\t'
+				|| s[i] == '\n' || s[i] == '\0')
 				cw++;
 		}
 	}
-	// printf("cw:%d\n", cw);
 	return (cw);
 }
 
-static char *ft_malloc_word(const char *str, char c1, char c2, int *start)
+static char	*ft_malloc_word(const char *str, char c1, char c2, int *start)
 {
 	char	*word;
 	int		i;
@@ -43,20 +44,12 @@ static char *ft_malloc_word(const char *str, char c1, char c2, int *start)
 
 	len = 0;
 	i = 0;
-	while (str[*start] == c1 || str[*start] == c2 || str[*start] == '\t' || str[*start] == '\n')
+	while (str[*start] == c1 || str[*start] == c2
+		|| str[*start] == '\t' || str[*start] == '\n')
 		*start += 1;
-	// while (str[*start + len] != c1 && str[*start + len] != c2 && 
-	// 		str[*start + len] != '\t' && str[*start + len] != '\n' && 
-	// 		str[*start + len] != '\0')
-	// 	len++;
-	// printf("this is len:%d\n", len);
-	// exit(0);
-	// while (str[*start] == c1 || str[*start] == c2)
-	// 	*start += 1;
-	while (str[*start + len] != c1 && str[*start + len] != c2 && str[*start + len] != '\0')
+	while (str[*start + len] != c1 && str[*start + len] != c2
+		&& str[*start + len] != '\0')
 		len++;
-	// printf("this is len:%d\n", len);
-	// exit(0);
 	word = malloc(sizeof(char) * (len + 1));
 	if (!word)
 		return (NULL);
@@ -70,7 +63,7 @@ static char *ft_malloc_word(const char *str, char c1, char c2, int *start)
 	return (word);
 }
 
-static char **ft_freeword(char **split, int i)
+static char	**ft_freeword(char **split, int i)
 {
 	while (i >= 0)
 	{
@@ -81,19 +74,18 @@ static char **ft_freeword(char **split, int i)
 	return (NULL);
 }
 
-char **split_data(char const *s, char c1, char c2)
+char	**split_data(char const *s, char c1, char c2)
 {
-	char **split;
-	int cw;
-	int i;
-	int start;
+	char	**split;
+	int		cw;
+	int		i;
+	int		start;
 
 	i = 0;
 	start = 0;
 	if (!s)
 		return (NULL);
 	cw = ft_countword(s, c1, c2);
-	// printf("cw:%d\n", cw);
 	split = (char **)malloc(sizeof(char *) * (cw + 1));
 	if (!split)
 		return (NULL);
