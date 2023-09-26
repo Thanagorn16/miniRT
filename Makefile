@@ -1,5 +1,5 @@
 ### Executable ###
-NAME	= minirt
+NAME	= miniRT
 
 ### Directory ###
 LIBFT_PATH	= libft/

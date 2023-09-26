@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:42:17 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/26 14:30:49 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:54:45 by truangsi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,15 @@ int	parsing(int ac, char **av, t_rt *rt)
 		exit(EXIT_FAILURE);
 	len = ft_2dstrlen(name) - 1;
 	if (len != 1)
+	{
+		printf("Invalid file\n");
 		return (free_2dstr(name), exit(EXIT_FAILURE), 1);
+	}
 	if (ft_strcmp(name[len], "rt") != 0)
+	{
+		printf("Error: Not '.rt' extension file name\n");
 		return (free_2dstr(name), exit(EXIT_FAILURE), 1);
+	}
 	free_2dstr(name);
 	count_shape(av, rt);
 	alloc_shape(rt);

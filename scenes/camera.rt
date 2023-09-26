@@ -1,0 +1,17 @@
+A 0.2 255,255,255
+#X Position
+# C 10,0,0 -1,0,0 40
+#Y Position
+# C 0,10,0 0,-1,0 40
+#Z Position
+# C 0,0,10 0,0,-1 40
+#Any Position
+C 5,5,5 -1,-1,-1 40
+#Upheight Position
+L 5,5,5 0.8 255,255,255
+# Plane
+pl 0,-1,0 0,1,0 0,128,128
+#Sphere
+sp 0,-0.5,1 1 255,255,0
+#Sphere
+cy 0,0,0 0,1,0 1 2 255,128,0
