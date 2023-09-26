@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:50:59 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/09/18 17:15:00 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/26 14:04:08 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static bool	closest_sphere(t_ray ray, t_hpl *hit, t_sp *sp, float t_closest)
 {
 	hit->distance = t_closest;
-	hit->point = vec_add(ray.oc, vec_scalar(ray.dir, hit->distance)); // closest point of sphere on matrix
+	hit->point = vec_add(ray.oc, vec_scalar(ray.dir, hit->distance));
 	hit->dir = vec_norm(hit->point);
 	if (sp->inside)
 		hit->dir = vec_scalar(hit->dir, -1);
-	hit->point = vec_add(hit->point, sp->pos); // move hit point back to the real position
+	hit->point = vec_add(hit->point, sp->pos);
 	hit->clr = sp->clr;
 	hit->ctr = sp->pos;
 	hit->hit = true;
@@ -48,12 +48,12 @@ bool	hit_sphere(t_ray ray, t_hpl *hit, t_sp *sp, int mode)
 	disc = discriminant(fml.a, fml.b, fml.c);
 	if (disc < 0.0f)
 		return (false);
-	t_closest = (-fml.b - sqrtf(disc)) / (2 * fml.a); // closest distance from camera to sphere
-	if (t_closest < 0) // incase of position of camera are inside the sphere
+	t_closest = (-fml.b - sqrtf(disc)) / (2 * fml.a);
+	if (t_closest < 0)
 		t_closest = hit_inside(fml, disc, &sp->inside);
 	if (t_closest < 0.00f || t_closest > hit->distance)
 		return (false);
-	if (mode) // To only calculate that hit any object.
+	if (mode)
 		return (true);
 	return (closest_sphere(ray, hit, sp, t_closest));
 }

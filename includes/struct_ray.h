@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_ray.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:50:05 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/09/18 17:02:28 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/26 14:28:16 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_cmr
 	t_cor	move[3];
 	t_axis	axis;
 	t_cor	post;
-	t_cor	fpro; //first projection
+	t_cor	fpro;
 	t_cor	hor;
 	t_cor	ver;
 	float	vp_width;
@@ -71,9 +71,9 @@ typedef struct s_object
 
 typedef struct s_ray
 {
-	t_cor	dir; // Ray direction
-	t_cor	ori; // Camera Position
-	t_cor	oc; // Original Center (ori - obj.pos)
+	t_cor	dir;
+	t_cor	ori;
+	t_cor	oc;
 }	t_ray;
 
 typedef struct s_hitpayload
@@ -97,14 +97,13 @@ typedef struct s_selete
 
 typedef struct s_param
 {
+	t_rt	rt;
 	t_image	img;
 	void	*mlx;
 	void	*win;
 	t_obj	obj;
 	t_cmr	cmr;
 	t_slt	slt;
-	long int	start; // framerate
-	long int	current; // framerate
 }	t_param;
 
 #endif

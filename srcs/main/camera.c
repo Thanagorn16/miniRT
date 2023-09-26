@@ -25,20 +25,11 @@ bool	setting_camera(t_param *par, t_cam cam)
 	t_cmr	cmr;
 
 	cmr.post = cam.pos;
-	cmr.vp_width = tanf(ft_radian(cam.fov) / 2) * 2; // viewport ratio
-	cmr.vp_height = ((float)WD_HEIGHT / (float)WD_WIDTH) * cmr.vp_width; // viewport ratio
-
-	// Change all axis to align with camera coordiate (direction)
+	cmr.vp_width = tanf(ft_radian(cam.fov) / 2) * 2;
+	cmr.vp_height = ((float)WD_HEIGHT / (float)WD_WIDTH) * cmr.vp_width;
 	cmr.axis = calculate_axis(vec_norm(cam.dir));
-	// debug_cor(cmr.axis.dir, "axis.dir: ");
-	// debug_cor(cmr.axis.hor, "axis.hor: ");
-	// debug_cor(cmr.axis.ver, "axis.ver: ");
-
-	// Camera plane on horizotal and vertical scale as viewport
 	cmr.hor = vec_scalar(cmr.axis.hor, cmr.vp_width);
 	cmr.ver = vec_scalar(cmr.axis.ver, cmr.vp_height);
-
-	// First projection of camera
 	cmr.fpro = cmr.axis.dir;
 	cmr.fpro = vec_sub(cmr.axis.dir, vec_scalar(cmr.hor, 0.5));
 	cmr.fpro = vec_add(cmr.fpro, vec_scalar(cmr.ver, 0.5));
@@ -90,6 +81,5 @@ bool	move_camera(int keycode, t_cmr *cmr)
 		cmr->post = vec_sub(cmr->post, cmr->move[PEDESTAL]);
 	else
 		return (false);
-	cmr_post(*cmr); // debug 
 	return (true);
 }

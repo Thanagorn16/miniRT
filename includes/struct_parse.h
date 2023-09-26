@@ -129,8 +129,6 @@ typedef struct s_rt
 	int			fd;
 }	t_rt;
 
-// Create random
-void	create_rt(t_rt *rt);
 // non shapes
 t_cor	set_cor(char *set1, char *set2, char *set3);
 t_rgb	set_clr(char **set);
@@ -161,5 +159,6 @@ int		parsing(int ac, char **av, t_rt *rt);
 float	ft_atof(const char *str);
 char	**split_data(char const *s, char c1, char c2);
 void	free_data(t_rt *rt);
+void	free_shape(t_rt *rt);
 void	free_exit(t_rt *rt, char **set, char *err);
 #endif

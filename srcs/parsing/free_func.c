@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 11:09:51 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/26 12:06:25 by truangsi         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:09:52 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ void	free_data(t_rt *rt)
 	free(rt->sp);
 	free(rt->cy);
 	free(rt->tmp);
+}
+
+void	free_shape(t_rt *rt)
+{
+	free(rt->pl);
+	free(rt->sp);
+	free(rt->cy);
 }
 
 void	free_exit(t_rt *rt, char **set, char *err)

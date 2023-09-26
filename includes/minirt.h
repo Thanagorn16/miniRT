@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 00:49:50 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/09/26 12:13:44 by truangsi         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:28:59 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "mlx.h"
+# include "../mlx_linux/mlx.h"
+# include "../mlx_mac/mlx.h"
 # include "color.h"
 # include "struct_ray.h"
 
@@ -24,11 +25,11 @@
 
 # include <sys/time.h>
 
+# define LINUX_OS 0
 # if defined(__linux__)
 #  include "keycode_linux.h"
 #  define LINUX_OS 1
 # else
-#  define LINUX_OS 0
 #  include "keycode_macos.h"
 # endif
 
@@ -82,12 +83,9 @@ void	put_pixel_to_image(t_image *img, t_pix pix);
 int		key_hook(int keycode, t_param *par);
 // Debugger
 void	cmr_post(t_cmr cmr);
-void	sphere_post(t_sp sp);
 void	debug_cor(t_cor cor, char *str);
 void	debug_rgb(t_rgb rgb, char *str);
-void	test_ray_point(t_ray ray, t_cy *cy, t_sp *sp, t_pl *pl, int mode);
 void	debug_diskey(int keycode);
-long int	get_elapse_time(void);
 // Algebra
 float	ft_pow2(float num);
 float	ft_abs(float num);

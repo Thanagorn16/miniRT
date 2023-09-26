@@ -6,7 +6,7 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:51:15 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/09/26 12:23:07 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:04:34 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,5 @@ int	render_scene(t_param *par)
 		pix.y++;
 	}
 	mlx_put_image_to_window(par->mlx, par->win, par->img.ptr, 0, 0);
-	par->current = get_elapse_time(); // framerate
-	printf("Frame rate : %ld ms\n", (par->current - par->start)/ 1000); // framerate
-	par->start = par->current; // framerate
 	return (true);
 }

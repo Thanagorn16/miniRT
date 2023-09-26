@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:50:55 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/09/18 17:08:55 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/26 14:03:38 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ bool	hit_plane(t_ray ray, t_hpl *hit, t_pl *pl, int mode)
 	if (mode)
 		return (true);
 	hit->distance = distance;
-	hit->point = vec_add(ray.ori, vec_scalar(ray.dir, distance)); // closest point
+	hit->point = vec_add(ray.ori, vec_scalar(ray.dir, distance));
 	hit->dir = pl->dir;
-	if (denom > 0) // invert plane dir, Cause plane can see Top and Bot
+	if (denom > 0)
 		hit->dir = vec_scalar(hit->dir, -1);
 	hit->clr = pl->clr;
 	hit->hit = true;

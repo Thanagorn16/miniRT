@@ -6,13 +6,13 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:50:41 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/08/31 14:21:36 by tnantaki         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:05:39 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
- // y_axis : vector that point up along with y axis
+// y_axis : vector that point up along with y axis
 t_axis	calculate_axis(t_cor dir)
 {
 	register t_axis	axis;

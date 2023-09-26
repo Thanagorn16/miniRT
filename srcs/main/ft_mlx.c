@@ -17,15 +17,15 @@ bool	init_window(t_param *par)
 	par->mlx = mlx_init();
 	if (par->mlx == NULL)
 	{
-		// free something
+		free_shape(&par->rt);
 		return (false);
 	}
 	par->win = mlx_new_window(par->mlx, WD_WIDTH, WD_HEIGHT, "miniRT");
 	if (par->win == NULL)
 	{
-		// free something
-		// if (LINUX_OS)
-		// 	mlx_destroy_display(par->mlx);
+		free_shape(&par->rt);
+		if (LINUX_OS)
+			mlx_destroy_display(par->mlx);
 		free(par->mlx);
 		return (false);
 	}
@@ -34,11 +34,11 @@ bool	init_window(t_param *par)
 
 int	close_win(t_param *par)
 {
-	// free something
+	free_shape(&par->rt);
 	mlx_destroy_image(par->mlx, par->img.ptr);
 	mlx_destroy_window(par->mlx, par->win);
-	// if (LINUX_OS)
-	// 	mlx_destroy_display(par->mlx);
+	if (LINUX_OS)
+		mlx_destroy_display(par->mlx);
 	free(par->mlx);
 	exit (0);
 	return (0);
@@ -49,10 +49,10 @@ bool	create_image(t_param *par)
 	par->img.ptr = mlx_new_image(par->mlx, WD_WIDTH, WD_HEIGHT);
 	if (par->img.ptr == NULL)
 	{
-		// free something
+		free_shape(&par->rt);
 		mlx_destroy_window(par->mlx, par->win);
-		// if (LINUX_OS)
-		// 	mlx_destroy_display(par->mlx);
+		if (LINUX_OS)
+			mlx_destroy_display(par->mlx);
 		free(par->mlx);
 		return (false);
 	}

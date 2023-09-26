@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/31 13:50:44 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/09/18 14:16:55by marvin           ###   ########.fr       */
+/*   Created: 2023/09/26 14:06:32 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/09/26 14:06:33 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	closest_disk(t_hpl *hit, t_cy *cy, float denom, float distance)
 {
 	hit->distance = distance;
 	hit->dir = cy->dir;
-	if (denom > 0) // invert plane dir, Cause plane can see Top and Bot
+	if (denom > 0)
 		hit->dir = vec_scalar(hit->dir, -1);
 	hit->clr = cy->clr;
 	hit->hit = true;
@@ -28,7 +28,7 @@ bool	disk_intersection(t_ray ray, t_hpl *hit, t_cy *cy, int mode)
 	float	denom;
 	float	distance;
 	float	distance_bot;
-	t_cor	tmp_hitpoint; // use tmp before calculate vec length ,So in false case hit-point will don't change value
+	t_cor	tmp_hitpoint;
 	t_cor	pos;
 
 	denom = vec_dot(ray.dir, cy->dir);
@@ -71,7 +71,7 @@ static bool	closest_cylinder(t_ray ray, t_hpl *hit, t_cy *cy, float distance)
 // X is ray origin - Center point of object
 // V is vector of cylinder
 // r = radius
-// m = is a scalar that determines the closest point on the axis to the hit point.
+// m = is a scalar that determines the closest point on the axis to hit point.
 // a = (D|D) - (D|V)^2
 // b = 2 * ((D|X) - (D|V) * (X|V))
 // c = X|X - (X|V)^2 - r*r
@@ -99,7 +99,7 @@ bool	hit_cylinder(t_ray ray, t_hpl *hit, t_cy *cy, int mode)
 	if (t_closest < 0.00f || t_closest > hit->distance)
 		return (false);
 	cy->m = vec_dot(ray.dir, cy->dir) * t_closest + vec_dot(ray.oc, cy->dir);
-	if (ft_abs(cy->m) > cy->height / 2) // if equal maybe hit the edge of plane and it maybe don't saw it
+	if (ft_abs(cy->m) > cy->height / 2)
 		return (false);
 	if (mode)
 		return (true);

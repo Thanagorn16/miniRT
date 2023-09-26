@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:42:17 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/26 11:53:14 by truangsi         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:30:49 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	set_elem(char **av, t_rt *rt)
 			return (free_data(rt), exit(EXIT_FAILURE), 1);
 		process_elem(rt, set);
 		free(rt->tmp);
+		free_2dstr(set);
 	}
 	close(rt->fd);
 	return (EXIT_SUCCESS);
