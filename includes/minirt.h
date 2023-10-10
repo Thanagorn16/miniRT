@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 00:49:50 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/09/26 14:59:16 by truangsi         ###   ########.fr       */
+/*   Updated: 2023/10/10 11:21:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@
 
 # include <sys/time.h>
 
-# define LINUX_OS 0
 # if defined(__linux__)
 #  include "keycode_linux.h"
 #  define LINUX_OS 1
 # else
 #  include "keycode_macos.h"
+#  define LINUX_OS 0
 # endif
 
-// # define WD_WIDTH 1280
-// # define WD_HEIGHT 720
-# define WD_WIDTH 640
-# define WD_HEIGHT 480
+# define WD_WIDTH 1280
+# define WD_HEIGHT 720
+// # define WD_WIDTH 640
+// # define WD_HEIGHT 480
 
 # define FLT_MAX 3.4028234664e+38
 # define EPSILON 0.001f

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_non_shape.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 11:42:13 by truangsi          #+#    #+#             */
-/*   Updated: 2023/09/26 11:24:20 by truangsi         ###   ########.fr       */
+/*   Updated: 2023/10/10 11:19:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	set_amb(char **set, t_rt *rt)
 {
-	int static	i;
+	static int	i;
 
 	if (ft_2dstrlen(set) != 5)
 		free_exit(rt, set, FAILURE_INFO);
@@ -30,7 +30,7 @@ int	set_amb(char **set, t_rt *rt)
 
 int	set_cam(char **set, t_rt *rt)
 {
-	int static	i;
+	static int	i;
 
 	if (ft_2dstrlen(set) != 8)
 		free_exit(rt, set, FAILURE_INFO);
@@ -48,7 +48,7 @@ int	set_cam(char **set, t_rt *rt)
 
 int	set_light(char **set, t_rt *rt)
 {
-	int static	i;
+	static int	i;
 
 	if (ft_2dstrlen(set) != 8)
 		free_exit(rt, set, FAILURE_INFO);

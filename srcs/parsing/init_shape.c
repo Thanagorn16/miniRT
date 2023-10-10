@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shape.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: truangsi <truangsi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 08:38:16 by prachman          #+#    #+#             */
-/*   Updated: 2023/09/26 11:48:30 by truangsi         ###   ########.fr       */
+/*   Updated: 2023/10/10 11:19:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	set_sp(char **set, t_rt *rt)
 {
-	int static	i;
+	static int	i;
 
 	if (ft_2dstrlen(set) != 8)
 		free_exit(rt, set, FAILURE_INFO);
@@ -29,7 +29,7 @@ int	set_sp(char **set, t_rt *rt)
 
 int	set_pl(char **set, t_rt *rt)
 {
-	int static	i;
+	static int	i;
 
 	if (ft_2dstrlen(set) != 10)
 		free_exit(rt, set, FAILURE_INFO);
@@ -44,7 +44,7 @@ int	set_pl(char **set, t_rt *rt)
 
 int	set_cy(char **set, t_rt *rt)
 {
-	int static	i;
+	static int	i;
 
 	if (ft_2dstrlen(set) != 12)
 		free_exit(rt, set, FAILURE_INFO);
